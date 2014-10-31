@@ -1,0 +1,17 @@
+<template name="infoWindow">
+	{{#if record}}
+	<p class="visible-xs text-left pull-left">
+		{{truncate record.name 30}}<br/>
+		{{record.address}}<br/>
+		{{record.city}}, {{record.state}} {{record.zip}}
+	</p>
+	
+	<p class="hidden-xs text-left pull-left">
+		{{record.name}}<br/>
+		{{record.address}}<br/>
+		{{record.city}}, {{record.state}} {{record.zip}}
+	</p>
+	
+	<a class="go pull-right text-right" href="/customers/{{record._id}}">Go</a>
+	{{/if}}
+</template>

@@ -1,0 +1,116 @@
+<template name="customers_list">
+	
+	<div class="col-md-12">
+		
+		<div class="panel widget ">
+			
+			<!-- <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+				
+				<ul class="filters list-group">
+					<a class="{{#if checkSession 'filter' 'a'}}active{{/if}} filter list-group-item text-center" href="/customers?q=a">A</a>
+					<a class="{{#if checkSession 'filter' 'b'}}active{{/if}} filter list-group-item text-center" href="/customers?q=b">B</a>
+					<a class="{{#if checkSession 'filter' 'c'}}active{{/if}} filter list-group-item text-center" href="/customers?q=c">C</a>
+					<a class="{{#if checkSession 'filter' 'd'}}active{{/if}} filter list-group-item text-center" href="/customers?q=d">D</a>
+					<a class="{{#if checkSession 'filter' 'e'}}active{{/if}} filter list-group-item text-center" href="/customers?q=e">E</a>
+					<a class="{{#if checkSession 'filter' 'f'}}active{{/if}} filter list-group-item text-center" href="/customers?q=f">F</a>
+					<a class="{{#if checkSession 'filter' 'g'}}active{{/if}} filter list-group-item text-center" href="/customers?q=g">G</a>
+					<a class="{{#if checkSession 'filter' 'h'}}active{{/if}} filter list-group-item text-center" href="/customers?q=h">H</a>
+					<a class="{{#if checkSession 'filter' 'i'}}active{{/if}} filter list-group-item text-center" href="/customers?q=i">I</a>
+					<a class="{{#if checkSession 'filter' 'j'}}active{{/if}} filter list-group-item text-center" href="/customers?q=j">J</a>
+					<a class="{{#if checkSession 'filter' 'k'}}active{{/if}} filter list-group-item text-center" href="/customers?q=k">K</a>
+					<a class="{{#if checkSession 'filter' 'l'}}active{{/if}} filter list-group-item text-center" href="/customers?q=l">L</a>
+					<a class="{{#if checkSession 'filter' 'm'}}active{{/if}} filter list-group-item text-center" href="/customers?q=m">M</a>
+					<a class="{{#if checkSession 'filter' 'n'}}active{{/if}} filter list-group-item text-center" href="/customers?q=n">N</a>
+					<a class="{{#if checkSession 'filter' 'o'}}active{{/if}} filter list-group-item text-center" href="/customers?q=o">O</a>
+					<a class="{{#if checkSession 'filter' 'p'}}active{{/if}} filter list-group-item text-center" href="/customers?q=p">P</a>
+					<a class="{{#if checkSession 'filter' 'q'}}active{{/if}} filter list-group-item text-center" href="/customers?q=q">Q</a>
+					<a class="{{#if checkSession 'filter' 'r'}}active{{/if}} filter list-group-item text-center" href="/customers?q=r">R</a>
+					<a class="{{#if checkSession 'filter' 's'}}active{{/if}} filter list-group-item text-center" href="/customers?q=s">S</a>
+					<a class="{{#if checkSession 'filter' 't'}}active{{/if}} filter list-group-item text-center" href="/customers?q=t">T</a>
+					<a class="{{#if checkSession 'filter' 'u'}}active{{/if}} filter list-group-item text-center" href="/customers?q=u">U</a>
+					<a class="{{#if checkSession 'filter' 'v'}}active{{/if}} filter list-group-item text-center" href="/customers?q=v">V</a>
+					<a class="{{#if checkSession 'filter' 'w'}}active{{/if}} filter list-group-item text-center" href="/customers?q=w">W</a>
+					<a class="{{#if checkSession 'filter' 'x'}}active{{/if}} filter list-group-item text-center" href="/customers?q=x">X</a>
+					<a class="{{#if checkSession 'filter' 'y'}}active{{/if}} filter list-group-item text-center" href="/customers?q=y">Y</a>
+					<a class="{{#if checkSession 'filter' 'z'}}active{{/if}} filter list-group-item text-center" href="/customers?q=z">Z</a>
+				</ul>
+				
+			</div> -->
+			
+			<!-- <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"> -->
+				
+				<table class="table table-hover">
+					
+					<thead>
+						<tr>
+							<th class="text-left">Active</th>
+							<th>Name</th>
+							<th class="hidden-xs">Address</th>
+							<th class="visible-lg">Phone</th>
+							<th class="text-right hidden-xs">&nbsp;</th>
+						</tr>
+					</thead>
+	
+					<tbody>
+						{{#each this}}
+						<tr  class="record {{#if checkCurrentModule 'customers'}}{{#if checkCurrentId _id}}active{{/if}}{{/if}}" id="customer_{{_id}}" record_id="{{_id}}" data-target="tab_view" data-toggle="tab">
+							<td class="text-left">
+								<i class="fa fa-{{#if active}}check-circle text-success{{else}}times-circle text-danger{{/if}} fa-fw"></i>
+							</td>
+							<td>{{truncate name 40}}</td>
+							<td class="hidden-xs">
+								{{#if address}}{{address}}, {{/if}}
+								{{#if city}}{{city}},{{/if}}
+								{{#if state}}{{state}}, {{/if}}
+								{{zip}}
+							</td>
+							<td class="visible-lg">{{phone}}</td>
+							<td class="text-right"><a href="/customers/{{_id}}/" class="record" id="customer_{{_id}}" record_id="{{_id}}"><i class="fa fa-search"></i></a></td>
+						</tr>
+						{{/each}}
+					</tbody>
+					
+				</table>
+			
+			<!-- </div> -->
+		
+		</div>
+	
+		
+			<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+				<div class="footer">
+					<div class="btn-group dropup pull-left">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							Filter <span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							{{#each filters}}
+							<li class="{{#if checkSession 'filter' this}} active {{/if}}"><a href="/customers?q={{this}}">{{this}}</a></li>
+							{{/each}}
+						</ul>
+					</div>
+					
+					<div class="btn-group dropup pull-right">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							Page <span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							{{#each pagination}}
+							<li class="{{#if checkSession 'page' this}} active {{/if}}"><a href="/customers?q={{getSession 'filter'}}&page={{this}}">{{this}}</a></li>
+							{{/each}}
+						</ul>
+					</div>
+					
+					
+					<!-- 
+					<button id="toggleView" class="btn btn-primary btn-sm">Toggle</button>
+					<button id="new_customer" class="btn btn-primary btn-sm">New Customer</button>
+					-->
+				</div>
+			</nav>
+
+	</div>
+	
+</template>

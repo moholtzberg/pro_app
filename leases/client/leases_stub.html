@@ -1,0 +1,16 @@
+<template name="leases_stub">
+	{{#each this.leases}}
+	<div class="panel widget col-md-3 sub_module">
+		<div class="panel-heading">
+			<h5>{{this.model.make.make_name}} - {{this.model.model_name}}</h5>
+		</div>
+		
+		<div class="panel-body">
+			{{this.dg_info.EquipmentNumber}} / {{this.dg_info.SerialNumber}}<br/>
+			Installed {{formatTime this.dg_info.InstallDate}}
+			{{#if this.lease}}{{this.lease.dg_info.LeaseNumber}}{{/if}}
+			
+		</div>
+	</div>
+	{{/each}}
+</template>

@@ -1,0 +1,44 @@
+<template name="customers_page">
+	
+	<div class="col-md-12">
+		
+		<div class="panel widget">
+		{{#with record}}
+			<div class="panel-heading">
+				<h4>{{name}}
+		
+					<span class="pull-right">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default btn-sm"><i class="fa fa-fw fa-edit"></i></button>
+							<button type="button" class="btn btn-default btn-sm cancel"><i class="fa fa-fw fa-times"></i></button>
+						</div>
+					</span>
+				</h4>
+			</div>
+	
+			<div class="panel-body">
+		
+				<div class="row">
+					<div class="container">
+						<address>
+						{{address}}<br/>
+						{{#if city}}{{city}},{{/if}} {{record.state}} {{record.zip}}<br/>
+						{{#if phone}}T {{phone}}<br/>{{/if}}
+						{{#if fax}}F {{record.fax}}{{/if}}
+						</address>
+						
+						{{> Template.dynamic template="equipments_stub" data=this}}
+						
+					</div>
+
+				</div>
+				
+				<hr/>
+				
+			</div>
+	{{/with}}
+		</div>
+		
+	</div>
+	
+</template>
