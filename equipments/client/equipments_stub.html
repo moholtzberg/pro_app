@@ -1,20 +1,28 @@
 <template name="equipments_stub">
-	{{#each this.equipments}}
-	<div class="panel widget col-md-3 sub_module">
-		<div class="panel-heading">
-			<h5>{{this.model.make.make_name}} - {{this.model.model_name}}</h5>
+	<div class="row subModules">
+		{{#each this.equipments}}
+		<div class="col-md-4">
+
+			<div class="panel widget">
+
+				<div class="panel-heading">
+					<h5>{{this.model.make.make_name}} {{this.model.model_number}}</h5>
+				</div>
+
+				<div class="panel-body">
+					{{this.equipment_number}} / {{this.equipment_serial}}<br/>
+					{{#if this.equipment_install_date}}Installed {{formatTime this.equipment_install_date}}<br/>{{/if}}
+					{{#if this.lease}}
+					Lease # {{this.lease.lease_number}}<br/>
+					Lease Start Date {{formatTime this.lease.lease_start_date}}
+					{{/if}}
+
+				</div>
+
+			</div>
+
 		</div>
-		
-		<div class="panel-body">
-			
-			{{this.dg_info.EquipmentNumber}} / {{this.dg_info.SerialNumber}}<br/>
-			Installed {{formatTime this.dg_info.InstallDate}}
-			{{#if this.lease}}
-			Lease # {{this.lease.dg_info.LeaseNumber}}<br/>
-			Leasing Start Date. {{formatTime this.lease.dg_info.StartDate}}
-			{{/if}}
-			
-		</div>
+		{{/each}}
 	</div>
-	{{/each}}
+	
 </template>

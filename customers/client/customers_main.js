@@ -25,7 +25,7 @@ Template.customers_list.helpers({
 		if (!Session.get("page")) {
 			Session.set("page", 1)
 		};
-		var pages = Math.ceil(Customers.find({$or:[{name: {$regex: "^"+Session.get("filter")+".*", $options: "i"}}, {"dg_info.CustomerName": {$regex: "^"+Session.get("filter")+".*", $options: "i"}}]}).count() / 15);
+		var pages = Math.ceil(Customers.find({customer_name: {$regex: "^"+Session.get("filter")+".*", $options: "i"}}).count() / 15);
 		var page = parseInt(Session.get("page"));
 		var pagination = new Array();
 		var range = parseInt(Session.get("range")) || 10;

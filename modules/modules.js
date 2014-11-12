@@ -38,5 +38,9 @@ Modules.allow({
 		} else {
 			return false;
 		}
+	},
+	
+	remove: function () {
+		return true;
 	}
 });

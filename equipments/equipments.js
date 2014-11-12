@@ -28,7 +28,7 @@ Equipment.prototype = {
 		} else {
 			var self = this; 
 		};
-		return Leases.findOne({lease_id: self.lease_id});
+		return Leases.findOne({dg_lease_id: self.equipment_lease_id});
 	},
 	
 	model: function() {
@@ -37,7 +37,7 @@ Equipment.prototype = {
 		} else {
 			var self = this; 
 		};
-		return Models.findOne({$or: [{_id: self.model_id}, {"dg_info.ModelID": self.dg_info.ModelID}]});
+		return Models.findOne({dg_model_id: self.equipment_model_id});
 	},
 	
 	active: function() {

@@ -11,7 +11,7 @@ Lease.prototype = {
 		} else {
 			var self = this; 
 		};
-		return Equipments.find({$or: [{lease_id: self._id}, {"dg_info.LeaseID": self.dg_info.LeaseID}]}).fetch();
+		return Equipments.find({dg_lease_id: self.dg_lease_id}).fetch();
 	},
 	
 	active: function() {

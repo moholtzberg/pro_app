@@ -47,7 +47,7 @@ Customer.prototype = {
 			var self = this; 
 		};
 		console.log(self.dg_info)
-		return Equipments.find({$or: [{customer_id: self._id}, {"dg_info.CustomerID": self.dg_info.CustomerID}]}).fetch();
+		return Equipments.find({dg_customer_id: self.dg_customer_id}).fetch();
 	},
 	
 	full_address: function() {
@@ -115,14 +115,17 @@ Customer.prototype = {
 	UpdateGeoLocation: function() {
 		var self = this;
 		if (Meteor.isServer) {
-			url = "http://maps.googleapis.com/maps/api/geocode/json?address=+" + encodeURIComponent(self.full_address());
+			var server_api_key = "AIzaSyD1c50Pm2aUnGvCxqbbVasMbqsFc_Crc7g"
+			url = "https://maps.googleapis.com/maps/api/geocode/json?address=+" + encodeURIComponent(self.full_address())+ "&key=" + server_api_key;
+			// console.log(url)
 			HTTP.call("GET", url, function (e, r) {
 				if (r.statusCode === 200 && r.data && r.data.results[0] && r.data.results[0].geometry) {
+					console.log(r.data.results[0].geometry.location)
 					var loc = {lat: r.data.results[0].geometry.location.lat, lng: r.data.results[0].geometry.location.lng}
 					Customers.update({_id: self._id}, {$set: {loc: loc}});
 				} else {
 					console.log(self.name() + " ==>> " + self.full_address());
-					console.log(url);
+					console.log(r.data);
 				}
 			});
 		} else {

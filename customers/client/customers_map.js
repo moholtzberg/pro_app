@@ -28,7 +28,6 @@ Template.customers_map.rendered = function() {
 				mapTypeControl: false,
 				scaleControl: false,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
-				
 			}
 
 			var marker = new google.maps.Marker({
@@ -54,21 +53,35 @@ Template.customers_map.rendered = function() {
 					MapBounds.update({}, boundObject);
 				}
 			
-				Meteor.subscribe('CustomersByGeolocation', MapBounds.findOne(), Session.get("mapFilter"), function(){
-					// console.log(this.ready())
-					// console.log(MapBounds.findOne());
-				});
+				// Meteor.subscribe('CustomersByGeolocation', MapBounds.findOne(), Session.get("mapFilter"), function(){
+				// 	// console.log(this.ready())
+				// 	// console.log(MapBounds.findOne());
+				// });
 			
 			})
 		
 			Tracker.autorun(function(){
 			
-				Customers.find().forEach(function(customer) {
+				Customers.find({customer_active: true}).forEach(function(customer) {
 					if (customer.loc != null) {
 						var marker = new google.maps.Marker({
 							position: new google.maps.LatLng(customer.loc.lat, customer.loc.lng),
 							title: customer.name(),
 							icon:'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+						});
+						marker.setMap(map);
+						google.maps.event.addListener(marker, 'click', function() {
+							Session.set("recordId", customer._id);
+						});
+					}
+				});
+				
+				Customers.find({customer_active: false}).forEach(function(customer) {
+					if (customer.loc != null) {
+						var marker = new google.maps.Marker({
+							position: new google.maps.LatLng(customer.loc.lat, customer.loc.lng),
+							title: customer.name(),
+							icon:'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
 						});
 						marker.setMap(map);
 						google.maps.event.addListener(marker, 'click', function() {

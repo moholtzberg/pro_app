@@ -5,10 +5,10 @@ Model = function (doc) {
 Model.prototype = {
   constructor: Model,
 	
-	model_name: function () {
-		var self = this;
-		return !self.dg_info ? self.model_name: self.dg_info.Model
-	},
+	// model_name: function () {
+	// 	var self = this;
+	// 	return !self.dg_info ? self.model_name: self.dg_info.Model
+	// },
 	
 	make: function () {
 		if (this.record) {
@@ -16,7 +16,7 @@ Model.prototype = {
 		} else {
 			var self = this; 
 		};
-		return Makes.findOne({"dg_info.MakeID": self.dg_info.MakeID});
+		return Makes.findOne({dg_make_id: self.model_make_id});
 	}
 
 };

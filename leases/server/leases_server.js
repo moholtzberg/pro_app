@@ -1,7 +1,7 @@
 Meteor.methods({
 	
-	getLeases: function () {
-		var v = HTTP.get("http://127.0.0.1:3000/leases.json");
+	getLeases: function (time) {
+		var v = HTTP.get("http://54.164.222.183:3000/leases.json?last_update="+time);
 		if (v.statusCode === 200) {
 			return v.content;
 		} else {
@@ -10,7 +10,7 @@ Meteor.methods({
 	},
 	
 	getLease: function (customer_id) {
-		var v = HTTP.get("http://127.0.0.1:3000/leases/" + customer_id + ".json");
+		var v = HTTP.get("http://54.164.222.183:3000/leases/" + customer_id + ".json");
 		if (v.statusCode === 200) {
 			return v.content;
 		} else {
@@ -19,7 +19,7 @@ Meteor.methods({
 	},
 	
 	newLease: function (customer_data) {
-		v = HTTP.post("http://127.0.0.1:3000/leases.json", {data: customer_data});
+		v = HTTP.post("http://54.164.222.183:3000/leases.json", {data: customer_data});
 		if (v.statusCode === 201) {
 			return v.content;
 		} else {
@@ -29,7 +29,7 @@ Meteor.methods({
 	
 	updateLease: function(customer_id, customer_data) {
 		console.log(customer_data)
-		v = HTTP.put("http://127.0.0.1:3000/leases/" + customer_id + ".json", {data: customer_data});
+		v = HTTP.put("http://54.164.222.183:3000/leases/" + customer_id + ".json", {data: customer_data});
 		if (v.statusCode === 202) {
 			return v.content;
 		} else {
@@ -44,21 +44,31 @@ Meteor.publish("Leases", function() {
 });
 
 Meteor.startup( function(){
+	
+	Leases._ensureIndex( {dg_lease_id: 1})
+	
+	if (!Modules.findOne({slug: "leases"})) {
+		Modules.insert({name: "Leases", slug: "leases", icon: "fa-user", active: false, admin_only: true, last_update: new Date()})
+	} else {
+		var last_update = Modules.findOne({slug: "leases"}).last_update
+	}
 
-	Meteor.call("getLeases", function(e, r){
+	Meteor.call("getLeases", last_update, function(e, r){
 		if (!e) {
-			console.log(r)
 			a = JSON.parse(r);
 			for (var i=0; i < a.length; i++) {
-				cust = Leases.findOne( {"dg_info.LeaseID": a[i].LeaseID} )
+				cust = Leases.findOne( {dg_lease_id: a[i].dg_lease_id} )
 				if (cust) {
-					if (cust.dg_info.LastUpdate < a[i].LastUpdate || !cust.dg_info.LastUpdate) {
-						Leases.update({_id: cust._id}, {$set: {dg_info: a[i]}})
+					if (cust.dg_lease_last_updated_at < a[i].dg_lease_last_updated_at || !cust.dg_lease_last_updated_at) {
+						Leases.update({_id: cust._id}, {$set: a[i]})
 					};
 				} else {
-					Leases.insert( {dg_info: a[i]} )
+					console.log("-->> " + a[i].dg_lease_id + " >> " + a[i].lease_number + " was not found in the db!")
+					Leases.insert({dg_lease_id: a[i].dg_lease_id, lease_customer_id: a[i].lease_customer_id, lease_number: a[i].lease_number, lease_payment: a[i].lease_payment, lease_term: a[i].lease_term, dg_leasing_company_id: a[i].dg_leasing_company_id, dg_lease_last_updated_at: a[i].dg_lease_last_updated_at})
 				}
 			};
+			Modules.update({slug: "leases"}, {$set: {last_update: new Date()}})
+			console.log("--->> " + "Done updating leases")
 		};
 	});
 });
