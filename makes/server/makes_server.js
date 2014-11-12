@@ -49,27 +49,30 @@ Meteor.startup( function(){
 	
 	if (!Modules.findOne({slug: "makes"})) {
 		Modules.insert({name: "Makes", slug: "makes", icon: "fa-user", active: true, admin_only: true, last_update: new Date()})
+		var last_update = new Date("01/01/2004")
 	}	else {
-		var last_update = Modules.findOne({slug: "makes"}).last_update ? Modules.findOne({slug: "makes"}).last_update : new Date()
+		var last_update = Modules.findOne({slug: "makes"}).last_update
 	}
 
 	Meteor.call("getMakes", last_update, function(e, r){
 		if (!e && r) {
 			var a = JSON.parse(r);
-			console.log(a.length)
+			console.log("----------> Total makes retrieved from DG " + a.length)
+			
 			for (var i=0; i < a.length; i++) {
 				cust = Makes.findOne( {dg_make_id: a[i].dg_make_id} )
 				if (cust) {
 					if ((cust.dg_last_update < a[i].dg_last_update) || !cust.dg_last_update) {
-						console.log(cust.dg_last_update + " -->> " + a[i].dg_last_update)
+						console.log("-----------> Updating make " + a[i].make_name + " was updated on " + new Date(a[i].dg_last_update).toLocaleDateString())
 						Makes.update({_id: cust._id}, {$set: a[i]})
 					};
 				} else {
+					console.log("-----------> Entering make " + a[i].make_name + " was not found in the db")
 					Makes.insert({dg_make_id: a[i].dg_make_id, make_name: a[i].make_name, make_active: a[i].make_active, dg_last_update: a[i].dg_last_update})
 				}
 			}
 			Modules.update({slug: "makes"}, {$set: {last_update: new Date()}})
-			console.log("--->> " + "Done updating makes")
+			console.log("----------> " + "Done updating makes")
 		}	
 	});
 });

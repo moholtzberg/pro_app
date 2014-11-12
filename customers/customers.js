@@ -46,7 +46,6 @@ Customer.prototype = {
 		} else {
 			var self = this; 
 		};
-		console.log(self.dg_info)
 		return Equipments.find({dg_customer_id: self.dg_customer_id}).fetch();
 	},
 	
@@ -100,7 +99,7 @@ Customer.prototype = {
 	
 	active: function() {
 		var self = this;
-		return !self.dg_info ? false : self.dg_info.Active
+		return !self.dg_info ? self.customer_active : self.dg_info.Active
 	},
 	
 	GeoLocation: function() {

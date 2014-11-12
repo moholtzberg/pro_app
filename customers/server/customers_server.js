@@ -53,7 +53,6 @@ Meteor.publish("Customers", function(){
 	};
 });
 
-
 Meteor.publish("CustomersByGeolocation", function(bounds, filter) {
 	console.log(bounds)
 	console.log(filter)
@@ -74,36 +73,33 @@ Meteor.startup( function(){
 	Customers._ensureIndex( { loc : "2d" } );
 	Customers._ensureIndex( {dg_customer_id: 1})
 	
-	// time = Customers.findOne({}, {sort: {dg_last_update: -1}}).dg_last_update
-	
 	if (!Modules.findOne({slug: "customers"})) {
 		Modules.insert({name: "Customers", slug: "customers", icon: "fa-user", active: true, admin_only: false, last_update: new Date()})
+		var last_update = new Date("01/01/2004")
 	} else {
-		var last_update = Modules.findOne({slug: "customers"}).last_update ? Modules.findOne({slug: "customers"}).last_update : new Date()
+		var last_update = Modules.findOne({slug: "customers"}).last_update
 	}
 	
 	Meteor.call("getCustomers", last_update, function(e, r){
 		if (!e && r) {
 			var a = JSON.parse(r);
-			console.log(a.length)
-			
-			console.log(Customers.findOne({}, {sort: {dg_last_update: -1}}))
+			console.log("----------> Total customers retrieved from DG " + a.length)
 			
 			for (var i=0; i < a.length; i++) {
 				cust = Customers.findOne( {dg_customer_id: a[i].dg_customer_id} )
 				if (cust) {
 					if ((cust.dg_last_update < a[i].dg_last_update) || !cust.dg_last_update) {
-						console.log(cust.dg_last_update + " -->> " + a[i].dg_last_update)
+						console.log("-----------> Updating customer " + a[i].dg_customer_number + " was updated on " + new Date(a[i].dg_last_update).toLocaleDateString())
 						Customers.update({_id: cust._id}, {$set: a[i]})
 						Customers.findOne({_id: cust._id}).UpdateGeoLocation();
 					};
-					console.log(cust.dg_customer_id + " -->> " + (cust.dg_last_update < a[i].dg_last_update))
 				} else {
+					console.log("-----------> Entering customer " + a[i].dg_customer_number + " was not found in the db")
 					Customers.insert({dg_customer_id: a[i].dg_customer_id, dg_customer_number: a[i].dg_customer_number, dg_customer_sales_rep_id: a[i].dg_customer_sales_rep_id, dg_customer_last_updated_at: a[i].dg_customer_last_updated_at,customer_name: a[i].customer_name, customer_address: a[i].customer_address, customer_city: a[i].customer_city, customer_state: a[i].customer_state, customer_zip: a[i].customer_zip, customer_phone: a[i].customer_phone, customer_fax: a[i].customer_fax, customer_active: a[i].customer_active, customer_prospect: a[i].customer_prospect})
 				}
 			}
 			Modules.update({slug: "customers"}, {$set: {last_update: new Date()}})
-			console.log("--->> " + "Done updating customers")
+			console.log("----------> " + "Done updating customers")
 		}	
 	});
 	
