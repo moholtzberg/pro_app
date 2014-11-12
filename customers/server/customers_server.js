@@ -79,7 +79,7 @@ Meteor.startup( function(){
 	if (!Modules.findOne({slug: "customers"})) {
 		Modules.insert({name: "Customers", slug: "customers", icon: "fa-user", active: true, admin_only: false, last_update: new Date()})
 	} else {
-		var last_update = Modules.findOne({slug: "customers"}).last_update
+		var last_update = Modules.findOne({slug: "customers"}).last_update ? Modules.findOne({slug: "customers"}).last_update : new Date()
 	}
 	
 	Meteor.call("getCustomers", last_update, function(e, r){

@@ -50,7 +50,7 @@ Meteor.startup( function(){
 	if (!Modules.findOne({slug: "makes"})) {
 		Modules.insert({name: "Makes", slug: "makes", icon: "fa-user", active: true, admin_only: true, last_update: new Date()})
 	}	else {
-		var last_update = Modules.findOne({slug: "makes"}).last_update
+		var last_update = Modules.findOne({slug: "makes"}).last_update ? Modules.findOne({slug: "makes"}).last_update : new Date()
 	}
 
 	Meteor.call("getMakes", last_update, function(e, r){
