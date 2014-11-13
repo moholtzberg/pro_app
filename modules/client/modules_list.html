@@ -9,9 +9,8 @@
 						<tr>
 							<th class="text-left">Active</th>
 							<th>Name</th>
-							<th class="hidden-xs">Address</th>
 							<th class="visible-lg">Phone</th>
-							<th class="text-right hidden-xs">&nbsp;</th>
+							<th class="text-right">Admin Only</th>
 						</tr>
 					</thead>
 	
@@ -19,17 +18,21 @@
 						{{#each this}}
 						<tr  class="record {{#if checkCurrentModule 'customers'}}{{#if checkCurrentId _id}}active{{/if}}{{/if}}" id="customer_{{_id}}" record_id="{{_id}}" data-target="tab_view" data-toggle="tab">
 							<td class="text-left">
-								<i class="fa fa-{{#if active}}check-circle text-success{{else}}times-circle text-danger{{/if}} fa-fw"></i>
+								{{#if active}}
+								<button class="btn btn-primary btn-xs record toggle is_active" id="{{_id}}" record_id="{{_id}}" current_value="{{active}}">Yes</button>
+								{{else}}
+								<button class="btn btn-danger btn-xs record toggle is_active" id="{{_id}}" record_id="{{_id}}" current_value="{{active}}">No</button>
+								{{/if}}
 							</td>
 							<td>{{truncate name 40}}</td>
-							<td class="hidden-xs">
-								{{#if address}}{{address}}, {{/if}}
-								{{#if city}}{{city}},{{/if}}
-								{{#if state}}{{state}}, {{/if}}
-								{{zip}}
-							</td>
 							<td class="visible-lg">{{phone}}</td>
-							<td class="text-right"><a href="/customers/{{_id}}/" class="record" id="customer_{{_id}}" record_id="{{_id}}"><i class="fa fa-search"></i></a></td>
+							<td class="text-right">
+								{{#if admin_only}}
+								<button class="btn btn-primary btn-xs record toggle admin_only" id="{{_id}}" record_id="{{_id}}" current_value="{{admin_only}}">Yes</button>
+								{{else}}
+								<button class="btn btn-danger btn-xs record toggle admin_only" id="{{_id}}" record_id="{{_id}}" current_value="{{admin_only}}">No</button>
+								{{/if}}
+							</td>
 						</tr>
 						{{/each}}
 					</tbody>
