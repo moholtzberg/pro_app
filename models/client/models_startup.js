@@ -1,5 +1,10 @@
 Meteor.startup( function(){
-	
+	console.log("starting up models")
+	if (Modules.findOne({slug: "models"}) && Modules.findOne({slug: "models"}).last_update) {
+		var last_update = Modules.findOne({slug: "models"}).last_update
+	} else {
+		var last_update = new Date("01/01/2004")
+	};
 	Meteor.call("getModels", last_update, function(e, r){
 		if (!e && r) {
 			var a = JSON.parse(r);
@@ -17,7 +22,7 @@ Meteor.startup( function(){
 					Models.insert({dg_model_id: a[i].dg_model_id, model_make_id: a[i].model_make_id, model_number: a[i].model_number, model_description: a[i].model_description, model_active: a[i].model_active, dg_last_update: a[i].dg_last_update})
 				}
 			}
-			Modules.update({slug: "models"}, {$set: {last_update: new Date()}})
+			Modules.update({_id: Modules.findOne({slug: "models"})._id}, {$set: {last_update: new Date()}})
 			console.log("----------> " + "Done updating models")
 		}	
 	});
