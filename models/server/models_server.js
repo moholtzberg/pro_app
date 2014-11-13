@@ -48,14 +48,14 @@ Meteor.startup( function(){
 	
 	Models._ensureIndex( {dg_model_id: 1})
 	
-	if (!Modules.findOne({slug: "models"})) {
-		Modules.insert({name: "Models", slug: "models", icon: "fa-user", active: false, admin_only: true, last_update: new Date()})
-		var last_update = new Date("01/01/2004")
-	}	else {
-		var last_update = Modules.findOne({slug: "models"}).last_update
-	}
-	
 });
+
+if (!Modules.findOne({slug: "models"})) {
+	Modules.insert({name: "Models", slug: "models", icon: "fa-user", active: false, admin_only: true, last_update: new Date()})
+	var last_update = new Date("01/01/2004")
+}	else {
+	var last_update = Modules.findOne({slug: "models"}).last_update
+}
 
 Meteor.call("getModels", last_update, function(e, r){
 	console.log(last_update)
