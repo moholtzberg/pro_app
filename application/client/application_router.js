@@ -29,6 +29,7 @@ Router.configure({
 			Meteor.subscribe("Models")
 			Meteor.subscribe("Makes")
 			Meteor.subscribe("Leases")
+			Meteor.subscribe("Users")
 		}
 	}
 });
