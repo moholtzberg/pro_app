@@ -1,6 +1,7 @@
 Meteor.methods({
 	
 	getModels: function (time) {
+		console.log(time)
 		var v = HTTP.get("http://54.164.222.183:3000/models.json?last_update="+time);
 		if (v.statusCode === 200) {
 			return v.content;
@@ -55,6 +56,7 @@ Meteor.startup( function(){
 	}
 
 	Meteor.call("getModels", last_update, function(e, r){
+		console.log(last_update)
 		if (!e && r) {
 			var a = JSON.parse(r);
 			console.log("----------> Total models retrieved from DG " + a.length)
