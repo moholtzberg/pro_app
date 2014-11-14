@@ -104,7 +104,7 @@ Template.customers_map.rendered = function() {
 					MapBounds.update({}, boundObject);
 				}
 			
-				Meteor.subscribe('CustomersByGeolocation', MapBounds.findOne(), Session.get("mapFilter"), function(){});
+				// Meteor.subscribe('CustomersByGeolocation', MapBounds.findOne(), Session.get("mapFilter"), function(){});
 			})
 		
 		})
