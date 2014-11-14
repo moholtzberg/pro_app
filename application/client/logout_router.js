@@ -1,6 +1,10 @@
 Router.route('logout', {
 	action: function () {
-		Meteor.logout();
-		Router.go("/login");
+		Meteor.logout(function(err){
+			if (!err) {
+				Router.go("/login");
+			};
+		});
+		
 	}
 });

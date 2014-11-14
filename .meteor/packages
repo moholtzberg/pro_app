@@ -7,9 +7,10 @@ meteor-platform
 iron:router
 http
 accounts-base
-accounts-password
 less
 underscore
 geojson-utils
 mrt:moment
+accounts-password
+accounts-ui
 

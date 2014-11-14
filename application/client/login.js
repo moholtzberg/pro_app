@@ -1,8 +1,7 @@
 Template.login.events({
 	
-	'click a#login' : function(event) {
-		console.log("Clicked Login");
-		event.preventDefault();
+	'click a#login, submit #login-form' : function(event) {
+		// event.preventDefault();
 		var un = $("#username").val();
 		var pw = $("#password").val();
 		console.log(un + "  " + pw)

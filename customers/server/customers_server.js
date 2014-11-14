@@ -46,26 +46,29 @@ Meteor.methods({
 
 Meteor.publish("Customers", function(){
 	var user = Meteor.users.findOne(this.userId)
-	if (user && user.profile && user.profile.is_admin) {
-		return Customers.find({});
-	} else {
-		return Customers.find({user_id: user._id});
-	};
+	if (user) {
+		if (user.profile && user.profile.is_admin) {
+			return Customers.find({});
+		} else {
+			return Customers.find({user_id: user._id});
+		}
+	} 
 });
 
 Meteor.publish("CustomersByGeolocation", function(bounds, filter) {
-	console.log(bounds)
-	console.log(filter)
 	var user = Meteor.users.findOne(this.userId)
-	if (bounds && bounds.southWest && bounds.northEast) {
-		if (user && user.profile && user.profile.is_admin) {
-			console.log("customers map found --->> " + Customers.find({loc: {$within: {$box: [ bounds.southWest, bounds.northEast ] }}}).count())
-			return Customers.find({loc: {$within: {$box: [ bounds.southWest, bounds.northEast ] }}}, {limit: 10})
-		} else {
-			return Customers.find({$and: [{user_id: user._id}, {loc: {$within: {$box: [ bounds.southWest, bounds.northEast ] }}}]}, {limit: 10})
-		};
+	if (bounds && (!isNaN(bounds.southWest)) && (!isNaN(bounds.northEast))) {
 		
-	};
+		if (user) {
+			if (user.profile && user.profile.is_admin) {
+				console.log("customers map found --->> " + Customers.find({loc: {$within: {$box: [ bounds.southWest, bounds.northEast ] }}}).count())
+				return Customers.find({loc: {$within: {$box: [ bounds.southWest, bounds.northEast ] }}}, {limit: 10})
+			} else {
+				return Customers.find({$and: [{user_id: user._id}, {loc: {$within: {$box: [ bounds.southWest, bounds.northEast ] }}}]}, {limit: 10})
+			}
+		}
+
+	}
 });
 
 Meteor.startup( function(){
