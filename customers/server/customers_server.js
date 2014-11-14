@@ -57,8 +57,10 @@ Meteor.publish("Customers", function(){
 
 Meteor.publish("CustomersByGeolocation", function(bounds, filter) {
 	var user = Meteor.users.findOne(this.userId)
+	console.log(user)
+	console.log(bounds.southWest)
+	console.log(bounds.northEast)
 	if (bounds && (!isNaN(bounds.southWest)) && (!isNaN(bounds.northEast))) {
-		
 		if (user) {
 			if (user.profile && user.profile.is_admin) {
 				console.log("customers map found --->> " + Customers.find({loc: {$within: {$box: [ bounds.southWest, bounds.northEast ] }}}).count())

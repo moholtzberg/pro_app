@@ -7,7 +7,7 @@ Template.customers_map.rendered = function() {
 	// 	$("#map-canvas").height("400px");
 	// };
 	
-	$("#map-canvas").height(document.body.clientHeight - 180 + "px");
+	$("#map-canvas").height(document.body.clientHeight - 80 + "px");
 	
 	
 	if (navigator.geolocation) {

@@ -4,6 +4,10 @@
 	
 	<div class="navmenu navmenu-fixed-left offcanvas-xs offcanvas-sm offcanvas-md">
 		
+		<a href="/logout" id="logout" class="btn btn-warning visible-xs visible-sm">
+			<i class="fa fa-fw fa-sign-out"></i>Sign Out
+		</a>
+		
 		{{> yield "nav"}}
 		
 	</div>
@@ -18,7 +22,7 @@
 		
 		<span class="navbar-brand">Welcome {{currentUser.profile.first_name}}</span>
 		
-		<a href="/logout" id="logout" class="btn btn-warning pull-right">
+		<a href="/logout" id="logout" class="btn btn-warning pull-right hidden-xs hidden-sm">
 			<i class="fa fa-fw fa-sign-out"></i>Sign Out
 		</a>
 		
