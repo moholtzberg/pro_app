@@ -81,7 +81,7 @@ Router.route('customers', {
 		if (this.params.query) {
 			Session.set("filter", this.params.query.q)
 			console.log(Session.get("filter"))
-			Session.set("page", this.params.page)
+			Session.set("page", this.params.query.page)
 		} else {
 			Session.set("filter", "a")
 			Session.set("page", 1)
