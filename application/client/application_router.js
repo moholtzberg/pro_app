@@ -31,6 +31,7 @@ Router.configure({
 			Meteor.subscribe("Leases")
 			Meteor.subscribe("Users")
 			Meteor.subscribe("Contacts")
+			this.next()
 		}
 	}
 });
