@@ -1,0 +1,64 @@
+<template name="contacts_form">
+	
+	<div class="modal-header">
+		
+		<button type="button" class="close" data-dismiss="modal">
+			<span aria-hidden="true">&times;</span>
+			<span class="sr-only">Close</span>
+		</button>
+		
+		<h4 class="modal-title">Add Contact</h4>
+		
+	</div>
+	
+	<div class="modal-body">
+		<form id="contact_form">
+			<fieldset>
+				
+				{{#if getSession "error"}}
+				<div class="alert alert-danger" role="alert">
+					{{getSession "error"}}
+				</div>
+				{{/if}}
+				
+				<div class="form-group col-md-12">
+					<label>Customer</label>
+					<select id="customer_id" name="customer_id" value="{{record.customer_id}}" class="form-control input-sm">
+						<option selected disabled>Select One</option>
+						{{#each customers}}
+						<option value="{{_id}}" {{selected _id record.customer_id "selected"}}>{{name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				
+				<div id="contact_first_name" class="form-group col-md-6">
+					<label>First Name</label>
+					<input type="text" id="contact_first_name" name="contact_first_name" value="{{record.contact_first_name}}" class="form-control input-sm">
+				</div>
+
+				<div id="contact_last_name" class="form-group col-md-6">
+					<label>Last Name</label>
+					<input type="text" id="contact_last_name" name="contact_last_name" value="{{record.contact_last_name}}" class="form-control input-sm">
+				</div>
+			
+				<div id="contact_email" class="form-group col-md-6">
+					<label>Email</label>
+					<input type="text" id="contact_email" name="contact_email" value="{{record.contact_email}}" class="form-control input-sm">
+				</div>
+				
+				<div id="contact_phone" class="form-group col-md-6">
+					<label>Phone</label>
+					<input type="text" id="contact_phone" name="contact_phone" value="{{record.contact_phone}}" class="form-control input-sm">
+				</div>
+			
+			</fieldset>
+		
+		</form>
+	</div>
+	
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="button" class="btn btn-primary" id="save_contact">Save changes</button>
+	</div>
+	
+</template>

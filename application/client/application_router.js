@@ -30,6 +30,7 @@ Router.configure({
 			Meteor.subscribe("Makes")
 			Meteor.subscribe("Leases")
 			Meteor.subscribe("Users")
+			Meteor.subscribe("Contacts")
 		}
 	}
 });

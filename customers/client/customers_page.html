@@ -28,6 +28,7 @@
 						</address>
 						
 						{{> Template.dynamic template="equipments_stub" data=this}}
+						{{> Template.dynamic template="contacts_stub" data=this}}
 						
 					</div>
 
@@ -38,6 +39,14 @@
 			</div>
 	{{/with}}
 		</div>
+		
+		<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+			<div class="footer">
+				
+				<button data-toggle="modal" data-target="#modal1" class="btn btn-primary btn-sm pull-right">Add Contact</button>
+				
+			</div>
+		</nav>
 		
 	</div>
 	

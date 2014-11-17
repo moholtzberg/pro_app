@@ -20,7 +20,7 @@ Customer.prototype = {
 			var self = this; 
 		};
 		// console.log(Contacts.find({customer_id: self._id}).fetch());
-		// return Contacts.find({customer_id: self._id}).fetch();
+		return Contacts.find({customer_id: self._id}).fetch();
 	},
 	
 	notContacted: function () {

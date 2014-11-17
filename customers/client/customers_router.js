@@ -64,16 +64,13 @@ Router.route('customers/:id', {
 	// layoutTemplate: "application_layout",
 	template: "customers_page",
 	waitOn: function () {
-		// return Meteor.subscribe("Customers")
+		return Meteor.subscribe("Customers")
 	},
 	action: function () {
-		// Meteor.subscribe("Equipments")
-		// Meteor.subscribe("Models")
-		// Meteor.subscribe("Makes")
-		// Meteor.subscribe("Leases")
 		if (this.ready()) {
 			Session.set("recordId", this.params.id)
 			this.render("nav", {to: "nav"});
+			this.render("contacts_form", {to: "modal1"});
 			this.render();
 		} else {
 			this.render("loading")
