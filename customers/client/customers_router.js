@@ -64,7 +64,7 @@ Router.route('customers/:id', {
 	// layoutTemplate: "application_layout",
 	template: "customers_page",
 	waitOn: function () {
-		return Meteor.subscribe("Customers")
+		// return Meteor.subscribe("Customers")
 	},
 	action: function () {
 		if (this.ready()) {
