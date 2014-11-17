@@ -1,17 +1,3 @@
-// Router.route('modules/:id', {
-// 	// layoutTemplate: "application_layout",
-// 	template: "modules_page",
-// 	action: function () {
-// 		if (this.ready()) {
-// 			Session.set("recordId", this.params.id)
-// 			this.render("nav", {to: "nav"});
-// 			this.render();
-// 		} else {
-// 			this.render("loading")
-// 		};
-// 	}
-// });
-
 Router.route('modules', {
 	// layoutTemplate: 'application_layout',
 	template: 'modules_list',
@@ -22,12 +8,16 @@ Router.route('modules', {
 		return Modules.find()
 	},
 	action: function () {
-		if (this.ready()) {
-			Session.set("recordId", false)
-			this.render("nav", {to: "nav"});
-			this.render();
+		if (!Meteor.loggingIn() && !Meteor.user()) {
+			this.redirect('/login');
 		} else {
-			this.render("loading")
-		};
+			if (this.ready()) {
+				Session.set("recordId", false)
+				this.render("nav", {to: "nav"});
+				this.render();
+			} else {
+				this.render("loading")
+			};
+		}
 	}
 });

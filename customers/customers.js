@@ -3,7 +3,7 @@ Customer = function (doc) {
 };
 
 Customer.prototype = {
-  constructor: Customer,
+	constructor: Customer,
 	
   owner: function () {
 		user = Meteor.users.findOne({_id: this.user_id});

@@ -1,8 +1,18 @@
 Router.route('/', {
-	
+	// layoutTemplate: "application_layout",
 	template: 'home',
-
-	action: function () {
+	// waitOn: function(){
+	// 	if (Meteor.user()) {
+	// 		this.subscribe("Customers").wait()
+	// 		this.subscribe("Equipments").wait()
+	// 		this.subscribe("Models").wait()
+	// 		this.subscribe("Makes").wait()
+	// 		this.subscribe("Leases").wait()
+	// 		this.subscribe("Users").wait()
+	// 		this.subscribe("Contacts").wait()
+	// 	}
+	// },
+	action: function() {
 		if (this.ready()) {
 			this.render("nav", {to: "nav"});
 			this.render();
@@ -13,25 +23,25 @@ Router.route('/', {
 });
 
 Router.configure({
-	layoutTemplate: 'application_layout',
-	// loadingTemplate: 'loading',
-	// waitOn: function () { 
-	// 	return Meteor.subscribe('Modules'); 
-	// },
-
-	onBeforeAction: function() {
-		if (!Meteor.loggingIn() && !Meteor.user()) {
-			Router.go('/login');
-		} else {
-			Meteor.subscribe("Modules")
-			Meteor.subscribe("Customers")
-			Meteor.subscribe("Equipments")
-			Meteor.subscribe("Models")
-			Meteor.subscribe("Makes")
-			Meteor.subscribe("Leases")
-			Meteor.subscribe("Users")
-			Meteor.subscribe("Contacts")
-			this.next()
+	layoutTemplate: "application_layout",
+	loadingTemplate: "loading",
+	waitOn: function(){
+		if (Meteor.user()) {
+			this.subscribe("Customers").wait()
+			this.subscribe("Equipments").wait()
+			this.subscribe("Models").wait()
+			this.subscribe("Makes").wait()
+			this.subscribe("Leases").wait()
+			this.subscribe("Users").wait()
+			this.subscribe("Contacts").wait()
 		}
 	}
+	// onRun: function() {
+	// 	if (!Meteor.loggingIn() && !Meteor.user()) {
+	// 		this.redirect('/login');
+	// 	} else {
+	// 		this.render()
+	// 		this.next
+	// 	}
+	// }
 });

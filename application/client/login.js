@@ -9,7 +9,6 @@ Template.login.events({
 			if (err) {
 				console.log(err)
 			} else {
-				console.log(this)
 				Router.go("/")
 			};
 		})) {

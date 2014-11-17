@@ -1,11 +1,9 @@
 Router.route('login', {
-	layoutTemplate: 'application_layout',
-	template: 'login',
 	action: function () {
 		if (Meteor.user()) {
-			Router.go("/");
+			this.redirect("/");
 		} else {
-			this.render();
-		};
+			this.render("login")
+		}
 	}
 });
