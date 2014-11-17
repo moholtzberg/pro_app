@@ -14,7 +14,7 @@ Router.route('customers/new', {
 Router.route('customers/maps', {
 	// layoutTemplate: 'application_layout',
 	template: 'customers_map',
-	onBeforeAction: function () {
+	// onBeforeAction: function () {
 		// custSub.stop()
 		// if (navigator.geolocation) {
 		// 	navigator.geolocation.getCurrentPosition(function(p) {
@@ -34,7 +34,7 @@ Router.route('customers/maps', {
 		// }
 		// 
 		// Meteor.subscribe("CustomersByGeolocation",  MapBounds.findOne(), "blank")
-	},
+	// },
 	waitOn: function () {
 		// return Meteor.subscribe("CustomersByGeolocation",  MapBounds.findOne(), "blank")
 	},
