@@ -31,7 +31,7 @@ Meteor.methods({
 	
 	createNewUser: function(options) {
 		console.log("===============NEW USER=======")
-		var h = Accounts.createUser({email: options.email, profile: options});
+		var h = Accounts.createUser({email: options.email, password: options.password, profile: options.profile});
 		console.log("===============END USER=======")
 		Accounts.sendEnrollmentEmail(h);
 		console.log(Meteor.users.findOne(h).services);

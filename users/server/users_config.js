@@ -1,6 +1,7 @@
 Accounts.config({
 	// restrictCreationByEmailDomain: 'worldtradecopiers.com'
-	sendVerificationEmail: true
+	sendVerificationEmail: true,
+	loginExpirationInDays: 1
 });
 
 Accounts.emailTemplates.siteName = "WTOS - CRM";

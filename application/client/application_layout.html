@@ -1,6 +1,29 @@
 <template name="application_layout">
 	
 	{{#if currentUser}}
+	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> yield "modal1"}}
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> yield "modal2"}}
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> yield "modal3"}}
+			</div>
+		</div>
+	</div>
 	
 	<div class="navmenu navmenu-fixed-left offcanvas-xs offcanvas-sm offcanvas-md">
 		

@@ -20,12 +20,9 @@ Router.configure({
 	// },
 
 	onBeforeAction: function() {
-		console.log(Meteor.user())
 		if (!Meteor.loggingIn() && !Meteor.user()) {
-			console.log("re rputing")
 			Router.go('/login');
 		} else {
-			console.log("We here")
 			Meteor.subscribe("Modules")
 			Meteor.subscribe("Customers")
 			Meteor.subscribe("Equipments")
