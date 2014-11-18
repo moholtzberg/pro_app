@@ -1,15 +1,3 @@
-// Meteor.subscribe("Customers");
-// if (Meteor.user()) {
-	Meteor.subscribe('Modules') 
-	// Meteor.subscribe('Customers')
-// };
-
-// Template.customers.helpers({
-// 	record: function () {
-// 		return Customers.findOne({_id: Session.get("recordId")});
-// 	}
-// });
-
 Template.customers_list.helpers({
 	filters: function () {
 		var filter = Session.get("filter")
@@ -63,18 +51,6 @@ Template.customers_list.helpers({
 	}
 });
 
-// Template.customers_form.helpers({
-// 	record: function () {
-// 		return Customers.findOne({_id: Session.get("recordId")});
-// 	}
-// });
-
-// Template.customers_form.dg_info = function() {
-// 	var self = this;
-// 	alert(self)
-// 	// if (self.dg_info) {};
-// }
-
 Template.infoWindow.helpers({
 	record: function() {
 		return Customers.findOne({_id: Session.get("recordId")});
@@ -86,3 +62,14 @@ Template.customers_page.helpers({
 		return Customers.findOne({_id: Session.get("recordId")});
 	}
 });
+
+Template.customers_list.helpers({
+	records: function() {
+		var per_page = 15
+		return Customers.find({customer_name: {$regex: "^"+Session.get("filter")+".*", $options: "i"}}, {sort: {customer_name: 1}, skip: (Session.get("page") - 1) * per_page, limit: per_page})
+	}
+})
+
+Meteor.subscribe("Customers", function(){
+	Session.set("customersReady", true)
+})

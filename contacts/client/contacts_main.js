@@ -9,3 +9,7 @@ Template.contacts_form.rendered = function() {
 		$("select#customer_id").val(Session.get("recordId"))
 	};
 }
+
+Meteor.subscribe("Contacts", function(){
+	Session.set("contactsReady", true)
+})

@@ -1,1 +1,3 @@
-Meteor.subscribe("Users")
+Meteor.subscribe("Users", function(){
+	Session.set("usersReady", true)
+})

@@ -1,1 +1,3 @@
-Meteor.subscribe("Modules");
+Meteor.subscribe("Modules", function(){
+	Session.set("modulesReady", true)
+})
