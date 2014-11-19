@@ -1,9 +1,6 @@
 Router.route('users', {
 	// layoutTemplate: 'application_layout',
 	template: 'users_list',
-	waitOn: function () {
-		return Meteor.subscribe("Users")
-	},
 	data: function() {
 		return Users.find()
 	},
