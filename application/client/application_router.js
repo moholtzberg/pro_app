@@ -21,14 +21,16 @@ Router.configure({
 		}
 	},
 	waitOn: function(){
-		this.subscribe("Modules").wait()
-		this.subscribe("Customers").wait()
-		this.subscribe("Contacts").wait()
-		this.subscribe("Users").wait()
-		this.subscribe("Models").wait()
-		this.subscribe("Leases").wait()
-		this.subscribe("Groups").wait()
-		this.subscribe("Equipments").wait()
+		if (Meteor.user()) {
+			this.subscribe("Modules").wait()
+			this.subscribe("Customers").wait()
+			this.subscribe("Contacts").wait()
+			this.subscribe("Users").wait()
+			this.subscribe("Models").wait()
+			this.subscribe("Leases").wait()
+			this.subscribe("Groups").wait()
+			this.subscribe("Equipments").wait()
+		};
 	}
 
 });
