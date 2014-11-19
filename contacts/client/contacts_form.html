@@ -69,7 +69,7 @@
 				
 				<div class="form-group col-md-12">
 					<label>Do you outsource IT?</label>
-					<select id="it_outsource" name="it_outsource" value="{{record.it_outsource}}" class="form-control input-sm">
+					<select id="it_outsource" name="it_outsource" value="{{record.it.it_outsource}}" class="form-control input-sm">
 						<option selected disabled>Select One</option>
 						<option value="yes" {{selected "yes" record.it_outsource "selected"}}>Yes</option>
 						<option value="no" {{selected "no" record.it_outsource "selected"}}>No</option>
@@ -78,7 +78,7 @@
 				
 				<div class="form-group col-md-12">
 					<label>Are you happy with the company you use?</label>
-					<select id="it_happy" name="it_happy" value="{{record.it_happy}}" class="form-control input-sm">
+					<select id="it_happy" name="it_happy" value="{{record.it.it_happy}}" class="form-control input-sm">
 						<option selected disabled>Select One</option>
 						<option value="yes" {{selected "yes" record.it_happy "selected"}}>Yes</option>
 						<option value="no" {{selected "no" record.it_happy "selected"}}>No</option>
@@ -87,11 +87,16 @@
 				
 				<div class="form-group col-md-12">
 					<label>If we were to offer you IT services, would you consider using our services?</label>
-					<select id="it_use" name="it_use" value="{{record.it_use}}" class="form-control input-sm">
+					<select id="it_use" name="it_use" value="{{record.it.it_use}}" class="form-control input-sm">
 						<option selected disabled>Select One</option>
 						<option value="yes" {{selected "yes" record.it_use "selected"}}>Yes</option>
 						<option value="no" {{selected "no" record.it_use "selected"}}>No</option>
 					</select>
+				</div>
+				
+				<div class="form-group col-md-12">
+					<label>IT Company Name</label>
+					<input type="text" id="it_company" name="it_company" value="{{record.it.it_company}}" class="form-control input-sm">
 				</div>
 				
 				<div class="form-group col-md-12">

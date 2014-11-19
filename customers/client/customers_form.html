@@ -53,6 +53,15 @@
 					{{/each}}
 				</select>
 			</div>
+			
+			<div id="group_id" class="form-group col-md-12">
+				<label>Group</label>
+				<select id="group_id" name="group_id" value="{{record.group_id}}" class="form-control input-sm">
+					{{#each groups}}
+					<option value="{{_id}}" {{selected _id record.group "selected"}}>{{name}}</option>
+					{{/each}}
+				</select>
+			</div>
 
 			<div class="clearfix"></div>
 
