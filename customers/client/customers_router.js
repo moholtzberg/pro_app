@@ -1,16 +1,7 @@
 Router.route('customers/new', {
 	template: "customers_form",
 	action: function () {
-		if (!Meteor.loggingIn() && !Meteor.user()) {
-			// this.redirect('/login');
-		} else {
-			if (this.ready()) {
-				this.render("nav", {to: "nav"});
-				this.render();
-			} else {
-				this.render("loading")
-			};
-		}
+		this.render();
 	}
 });
 
@@ -52,7 +43,7 @@ Router.route('customers/:id', {
 	data: function() {
 		return Customers.findOne({_id: Session.get("recordId")});
 	},
-	action: function() {	
+	action: function() {
 		this.render("contacts_form", {to: "modal1"});
 		this.render();
 	}
