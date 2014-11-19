@@ -92,20 +92,20 @@ Template.customers_map.rendered = function() {
 			
 			})
 		
-			google.maps.event.addListener(map, 'idle', function(){
-				var bounds = map.getBounds(), boundObject = { 
-					southWest: [bounds.getSouthWest().lat(), bounds.getSouthWest().lng()],
-					northEast: [bounds.getNorthEast().lat(), bounds.getNorthEast().lng()] 
-				};
-			
-				if (MapBounds.find().count() < 1) {
-					MapBounds.insert(boundObject);
-				} else {
-					MapBounds.update({}, boundObject);
-				}
-			
-				// Meteor.subscribe('CustomersByGeolocation', MapBounds.findOne(), Session.get("mapFilter"), function(){});
-			})
+			// google.maps.event.addListener(map, 'idle', function(){
+			// 	var bounds = map.getBounds(), boundObject = { 
+			// 		southWest: [bounds.getSouthWest().lat(), bounds.getSouthWest().lng()],
+			// 		northEast: [bounds.getNorthEast().lat(), bounds.getNorthEast().lng()] 
+			// 	};
+			// 
+			// 	if (MapBounds.find().count() < 1) {
+			// 		MapBounds.insert(boundObject);
+			// 	} else {
+			// 		MapBounds.update({}, boundObject);
+			// 	}
+			// 
+			// 	// Meteor.subscribe('CustomersByGeolocation', MapBounds.findOne(), Session.get("mapFilter"), function(){});
+			// })
 		
 		})
 		this.rendered = true;

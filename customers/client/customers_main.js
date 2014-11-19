@@ -63,13 +63,6 @@ Template.customers_page.helpers({
 	}
 });
 
-Template.customers_list.helpers({
-	records: function() {
-		var per_page = 15
-		return Customers.find({customer_name: {$regex: "^"+Session.get("filter")+".*", $options: "i"}}, {sort: {customer_name: 1}, skip: (Session.get("page") - 1) * per_page, limit: per_page})
-	}
-})
-
 Meteor.subscribe("Customers", function(){
 	Session.set("customersReady", true)
 })

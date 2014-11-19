@@ -1,5 +1,9 @@
 Meteor.startup( function(){
 	
+	Meteor.subscribe("Customers", function(){
+		Session.set("customersReady", true)
+	})
+	
 	console.log("starting up customers")
 	
 	if (Modules.findOne({slug: "customers"}) && Modules.findOne({slug: "customers"}).last_update) {

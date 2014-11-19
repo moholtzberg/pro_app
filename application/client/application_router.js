@@ -1,22 +1,28 @@
 Router.route('/', {
-	// layoutTemplate: "application_layout",
-	template: 'home',
+	template: "home",
+	data: function() {
+		return "From the home route \"/\""
+	},
 	action: function() {
-		if (this.ready()) {
-			this.render("nav", {to: "nav"});
-			this.render();
-		} else {
-			this.render("loading")
-		};
+		this.render();
 	}
 });
 
 Router.configure({
 	layoutTemplate: "application_layout",
 	loadingTemplate: "loading",
-	waitOn: function(){
-		if (Meteor.user()) {
-			this.subscribe("Modules").wait()
+	onBeforeAction: function(){
+		if (!Meteor.user() && !Meteor.loggingIn()) {
+			this.redirect('/login');
+			this.next()
+		} else {
+			this.render("nav", {to: "nav"})
+			this.render()
 		}
+	},
+	waitOn: function(){
+		this.subscribe("Modules").wait()
+		this.subscribe("Customers").wait()
 	}
+
 });

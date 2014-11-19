@@ -69,7 +69,6 @@ Meteor.publish("CustomersByGeolocation", function(bounds, filter) {
 				return Customers.find({$and: [{user_id: user._id}, {loc: {$within: {$box: [ bounds.southWest, bounds.northEast ] }}}]}, {limit: 10})
 			}
 		}
-
 	}
 });
 
