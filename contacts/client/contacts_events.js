@@ -13,7 +13,7 @@ Template.contacts_form.events({
 		var it_happy = $("select#it_happy").val()
 		var it_use = $("select#it_use").val()
 		var it_notes = $("textarea#it_notes").val()
-		var it_company = $("#input#it_company").val()
+		var it_company = $("input#it_company").val()
 		// if (re.test(email)) {
 				$("form#contact_form")[0].reset()
 				$('#modal1').modal('hide')
