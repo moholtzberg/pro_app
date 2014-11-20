@@ -7,9 +7,16 @@ Template.activities_form.events({
 		var activity_type = $("select#activity_type").val()
 		var notes = $("textarea#notes").val()
 		
-		$("form#contact_form")[0].reset()
-		$('#modal2').modal('hide')
-		Activities.insert({customer_id: customer_id, contact_id: contact_id, user_id: Meteor.userId(), activity_type: activity_type, notes: notes, time: new Date()})
+		
+		if (customer_id != null || contact_id != null) {
+			$("form#activity_form")[0].reset()
+			$("select#customer_id").val(Session.get("recordId"))
+			$('#modal2').modal('hide')
+			Activities.insert({customer_id: customer_id, contact_id: contact_id, user_id: Meteor.userId(), activity_type: activity_type, notes: notes, time: new Date()})
+		} else {
+			Session.set("error", "Select a customer or a contact")
+		};
+		
 	}
 
 })
