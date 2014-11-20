@@ -46,6 +46,7 @@ Router.route('customers/:id', {
 	action: function() {
 		this.render("contacts_form", {to: "modal1"});
 		this.render("activities_form", {to: "modal2"})
+		this.render("customers_form", {to: "modal3"})
 		this.render();
 	}
 });
