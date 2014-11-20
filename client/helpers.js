@@ -83,7 +83,7 @@ Handlebars.registerHelper("currentModule", function (options) {
 });
 
 Handlebars.registerHelper("formatTime", function (time) {
-	return moment(time).format("MM/DD/YY") + " about " + moment(time).from();
+	return time ? moment(time).format("MM/DD/YY") + " (" + moment(time).from() + ")": false;
 });
 
 Handlebars.registerHelper("moduleAction", function () {

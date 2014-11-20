@@ -19,9 +19,9 @@ Lease.prototype = {
 		return !self.dg_info ? self.active : self.dg_info.Active
 	},
 	
-	start_date: function() {
+	end_date: function() {
 		var self = this;
-		return !self.dg_info ? self.start_date : self.dg_info.StartDate
+		return !self.lease_start_date ? false : moment(self.lease_start_date).add(self.lease_term, "months");
 	}
 
 };

@@ -23,6 +23,17 @@ Customer.prototype = {
 		return Contacts.find({customer_id: self._id}).fetch();
 	},
 	
+	activities: function () {
+		if (this.record) {
+			var self = this.record;
+		} else {
+			var self = this; 
+		};
+		// console.log(Contacts.find({customer_id: self._id}).fetch());
+		return Activities.find({customer_id: self._id}).fetch();
+	},
+	
+	
 	notContacted: function () {
 		var contacts = this.contacts();
 		for (var i=0; i < contacts.length; i++) {

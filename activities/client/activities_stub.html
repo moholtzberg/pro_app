@@ -1,0 +1,10 @@
+<template name="activities_stub">
+	<ul class="list-group">
+	{{#each this.activities}}
+		<li class="list-group-item">
+			<h5 class="list-group-item-heading">{{owner.full_name}} {{activity_type}} with on {{formatTime time}}</h5>
+			<p class="list-group-item-text">{{notes}}</p>
+		</li>
+	{{/each}}
+	</ul>
+</template>

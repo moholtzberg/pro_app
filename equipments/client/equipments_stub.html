@@ -13,10 +13,12 @@
 					{{this.equipment_number}} / {{this.equipment_serial}}<br/>
 					{{#if this.equipment_install_date}}Installed {{formatTime this.equipment_install_date}}<br/>{{/if}}
 					{{#if this.lease}}
+					<hr/>
 					Lease # {{this.lease.lease_number}}<br/>
-					Lease Start Date {{formatTime this.lease.lease_start_date}}
+					Expiration Date {{formatTime this.lease.end_date}}
+					{{else}}
+					<br/>
 					{{/if}}
-
 				</div>
 
 			</div>

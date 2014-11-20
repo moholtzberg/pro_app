@@ -9,3 +9,12 @@ Template.nav.events({
 		$(".navmenu").offcanvas("hide")
 	}
 })
+
+Template.nav.rendered = function() {
+	$(".navmenu-fixed-left").offcanvas({
+     placement: "left",
+     autohide: true,
+     recalc: true,
+     toggle: false
+ });
+}

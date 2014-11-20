@@ -44,7 +44,7 @@ Meteor.publish("Equipments", function() {
 
 Meteor.startup( function(){
 	
-	Equipments._ensureIndex( {dg_equipment_id: 1})
+	Equipments._ensureIndex( {dg_equipment_id: 1}, {unique: true})
 	
 	if (!Modules.findOne({slug: "equipments"})) {
 		Modules.insert({name: "Equipments", slug: "equipments", icon: "fa-user", active: false, admin_only: true, last_update: new Date("01/01/2004")})
