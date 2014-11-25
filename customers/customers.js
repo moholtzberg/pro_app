@@ -5,13 +5,32 @@ Customer = function (doc) {
 Customer.prototype = {
 	constructor: Customer,
 	
-  owner: function () {
-		user = Meteor.users.findOne({_id: this.user_id});
-		// console.log(user);
-		if(user) {
-			return user.full_name();
-		}
-  }, 
+	users: function () {
+		if (this.record) {
+			var self = this.record;
+		} else {
+			var self = this;
+		};
+		if (Array.isArray(self.customer_user_id)) {
+			return Users.find({_id: {$in: self.customer_user_id}})
+		} else {
+			return Users.find({_id: self.customer_user_id})
+		};
+	},
+	
+	groups: function () {
+		if (this.record) {
+			var self = this.record;
+		} else {
+			var self = this;
+		};
+		if (Array.isArray(self.customer_group_id)) {
+			return Groups.find({_id: {$in: self.customer_group_id}})
+		} else {
+			return Groups.find({_id: self.customer_group_id})
+		};
+		
+	},
 	
 	contacts: function () {
 		if (this.record) {
@@ -72,10 +91,10 @@ Customer.prototype = {
 	},
 	
 	name: function() {
-		
 		var self = this;
 		// console.log(!self.dg_info ? self.customer_name: self.dg_info.CustomerName)
-		return !self.dg_info ? self.customer_name: self.dg_info.CustomerName
+		// return !self.dg_info ? self.customer_name: self.dg_info.CustomerName
+		return self.customer_name
 	},
 	
 	address: function() {
@@ -134,7 +153,7 @@ Customer.prototype = {
 					var loc = {lat: r.data.results[0].geometry.location.lat, lng: r.data.results[0].geometry.location.lng}
 					Customers.update({_id: self._id}, {$set: {loc: loc}});
 				} else {
-					console.log(self.name() + " ==>> " + self.full_address());
+					console.log(self.customer_name + " ==>> " + self.full_address());
 					console.log(r.data);
 				}
 			});

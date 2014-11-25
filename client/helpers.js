@@ -101,10 +101,18 @@ Handlebars.registerHelper("paginate", function () {
 	var pages = Math.ceil(count / 10);
 });
 
-Handlebars.registerHelper("selected", function (val1, val2, string) {
+Handlebars.registerHelper("selected", function (val1, val2, string) {	
 	if (val1 === val2) {
 		return string;
 	}
+});
+
+Handlebars.registerHelper("inList", function (val, list) {
+	console.log(list.indexOf(val) > -1)
+	console.log(list)
+	console.log(val)
+	return list.indexOf(val) > -1;
+	
 });
 
 Handlebars.registerHelper("checkSession", function (sessionName, valToCheck) {

@@ -50,7 +50,10 @@ Meteor.publish("Customers", function(){
 		if (user.profile && user.profile.is_admin) {
 			return Customers.find({});
 		} else {
-			return Customers.find({user_id: user._id});
+			console.log(Customers.find({customer_user_id: {$in: [user._id]}}).count())
+			if (Customers.find({customer_user_id: {$in: [user._id]}}).count() > 0) {
+				return Customers.find({customer_user_id: {$in: [user._id]}})
+			}
 		}
 	} 
 });
@@ -75,7 +78,8 @@ Meteor.publish("CustomersByGeolocation", function(bounds, filter) {
 Meteor.startup( function(){
 	
 	Customers._ensureIndex( { loc : "2d" } );
-	Customers._ensureIndex( {dg_customer_id: 1}, { unique: true })
+	Customers._ensureIndex( {dg_customer_id: false}, { unique: false })
+	// Customers._ensureIndex( {dg_customer_id: 1}, { unique: true })
 	
 	if (!Modules.findOne({slug: "customers"})) {
 		Modules.insert({name: "Customers", slug: "customers", icon: "fa-user", active: true, admin_only: false, last_update: new Date("01/01/2004")})

@@ -57,11 +57,29 @@ Template.infoWindow.helpers({
 	}
 });
 
-Template.customers_page.helpers({
-	record: function() {
-		return Customers.findOne({_id: Session.get("recordId")});
+// Template.customers_page.helpers({
+// 	record: function() {
+// 		return Customers.findOne({_id: Session.get("recordId")});
+// 	}
+// });
+
+Template.customers_form.helpers({
+	users: function() {
+		return Users.find({active: true});
+	},
+	groups: function() {
+		return Groups.find({active: true, group_type: "customers"});
 	}
 });
+
+Template.customers_form.rendered = function() {
+	$(function() {
+	    $('select#customer_user_id').selectize()[0].selectize.setValue(Customers.findOne({_id: Session.get("recordId")}).customer_user_id)
+	});
+	$(function() {
+	    $('select#customer_group_id').selectize()[0].selectize.setValue(Customers.findOne({_id: Session.get("recordId")}).customer_group_id)
+	});
+}
 
 Meteor.subscribe("Customers", function(){
 	Session.set("customersReady", true)

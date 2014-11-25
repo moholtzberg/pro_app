@@ -29,10 +29,10 @@
 							<td class="hidden-xs">{{profile.last_name}}</td>
 							<td class="visible-lg">{{#each emails}}{{address}}{{/each}}</td>
 							<td class="text-right">
-								{{#if profile.is_admin}}
-								<button class="btn btn-primary btn-xs record toggle is_admin" id="{{_id}}" record_id="{{_id}}" current_value="{{profile.is_admin}}">Yes</button>
+								{{#if admin}}
+								<button class="btn btn-primary btn-xs record toggle is_admin" id="{{_id}}" record_id="{{_id}}" current_value="{{admin}}">Yes</button>
 								{{else}}
-								<button class="btn btn-danger btn-xs record toggle is_admin" id="{{_id}}" record_id="{{_id}}" current_value="{{profile.is_admin}}">No</button>
+								<button class="btn btn-danger btn-xs record toggle is_admin" id="{{_id}}" record_id="{{_id}}" current_value="{{admin}}">No</button>
 								{{/if}}
 							</td>
 						</tr>

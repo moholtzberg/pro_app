@@ -8,6 +8,10 @@ User.prototype = {
 	full_name: function() {
 		var self = this;
 		return self.profile.first_name + " " + self.profile.last_name
+	},
+	admin: function() {
+		var self = this;
+		return self.profile.is_admin;
 	}
 };
 

@@ -12,7 +12,7 @@ Meteor.publish("Users", function () {
 			return Meteor.users.find();
 		} else {
 			console.log(user.profile.first_name + " " + user.profile.last_name + " : " + user.emails[0].address +" => {admin:false}");
-			return Meteor.users.findOne({_id: this.userId});
+			return Meteor.users.find({_id: this.userId});
 		};
 	};
 	
