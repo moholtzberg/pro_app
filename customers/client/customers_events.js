@@ -34,7 +34,12 @@ Template.customers_form.events({
 Template.customers_map.events({
 	
 	'click button.group_filter' : function(event) {
-		Session.set("group_filter", event.currentTarget.id)
+		if (event.currentTarget.id != "all") {
+			Session.set("group_filter", event.currentTarget.id)
+		} else {
+			Session.set("group_filter", null)
+		};
+		
 	}
 	
 })

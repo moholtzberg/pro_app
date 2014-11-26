@@ -161,7 +161,6 @@ Customer.prototype = {
 			console.log("Updating GeoLocaton on the Client")
 			geocoder = new google.maps.Geocoder();
 			geocoder.geocode({'address': self.full_address() }, function(results, status) {
-				console.log(results[0].geometry.location)
 				switch(status) {
 					case google.maps.GeocoderStatus.OK:
 						var loc = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}

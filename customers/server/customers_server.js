@@ -85,7 +85,8 @@ Meteor.startup( function(){
 		Modules.insert({name: "Customers", slug: "customers", icon: "fa-user", active: true, admin_only: false, last_update: new Date("01/01/2004")})
 	}
 	console.log(this.userId)
-	Customers.find({customer_active: true}).forEach(function(a){
+	
+	Customers.find({$and: [{customer_active: true}, {loc: null}]}).forEach(function(a){
 		a.UpdateGeoLocation()
 	})
 

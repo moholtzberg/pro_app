@@ -1,6 +1,7 @@
 Template.customers_map.rendered = function() {
 	$("#map-canvas").height(document.body.clientHeight - 80 + "px");
-	function addMarker(location, title, id, color, map) {
+	
+	function addMarker(title, location, id, color, map) {
 		var marker = new google.maps.Marker({
 			position: location,
 			map: map,
@@ -63,8 +64,10 @@ Template.customers_map.rendered = function() {
 		
 			Customers.find({customer_group_id: {$in: [Session.get("group_filter")]}}).forEach(function(customer) {
 				console.log(customer.name() + " ==> " + customer.loc + " ==> " + customer.customer_group_id)
-				if (customer.loc != null) {
-					addMarker(customer.loc, customer.name(), customer._id,"blue", map)
+				if (customer.loc && customer.loc.lat && customer.loc.lng) {
+					addMarker(customer.name(), customer.loc, customer._id,"blue", map)
+				} else {
+					customer.UpdateGeoLocation()
 				}
 			});
 		
