@@ -24,28 +24,33 @@ Template.customers_map.rendered = function() {
 		markers = []
 	}
 	
-	var map;
-	var markers = [];
-
-	if (!this.rendered) {
+	function setMyLocation() {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(p) {
 				Session.set("myLat", p.coords.latitude);
 				Session.set("myLng", p.coords.longitude);
 			});
+			return new google.maps.LatLng(Session.get("myLat"), Session.get("myLng"));
 		}
+	}
+	
+	var map;
+	var markers = [];
+
+	if (!this.rendered) {
+		
 		Tracker.autorun(function(){
-			var myLocation = new google.maps.LatLng(Session.get("myLat"), Session.get("myLng"));
+			var myLocation = setMyLocation()
 			var mapOptions = {
 				zoom: 14,
 				center: myLocation,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		})
+		
 		
 		Tracker.autorun(function(){
-			var myLocation = new google.maps.LatLng(Session.get("myLat"), Session.get("myLng"));
+			var myLocation = setMyLocation()
 			clearMarkers()
 			var marker = new google.maps.Marker({
 				position: myLocation,
@@ -56,8 +61,8 @@ Template.customers_map.rendered = function() {
 			marker.setMap(map)
 		
 			Customers.find({customer_group_id: {$in: [Session.get("group_filter")]}}).forEach(function(customer) {
+				console.log(customer.name() + " ==> " + customer.loc + " ==> " + customer.customer_group_id)
 				if (customer.loc != null) {
-				
 					addMarker(customer.loc, customer.name(), customer._id,"blue", map)
 				}
 			});
@@ -67,7 +72,7 @@ Template.customers_map.rendered = function() {
 		
 		})
 		this.rendered = true;
-		
+		})
 	};
 	
 	
