@@ -46,8 +46,9 @@ Template.customers_map.rendered = function() {
 				center: myLocation,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-			map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		
+			if (myLocation) {
+				map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+			};
 		
 		Tracker.autorun(function(){
 			var myLocation = setMyLocation()
