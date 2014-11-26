@@ -1,6 +1,6 @@
 MapBounds = new Meteor.Collection(null);
 
-Template.customers_map.rendered = function() {
+// Template.customers_map.rendered = function() {
 	// if (document.body.clientHeight < 461) {
 	// 	$("#map-canvas").height("250px");
 	// } else {
@@ -110,4 +110,4 @@ Template.customers_map.rendered = function() {
 		})
 		this.rendered = true;
 	}
-}
+// }

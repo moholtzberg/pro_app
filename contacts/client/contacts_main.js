@@ -9,10 +9,13 @@ Template.contacts_form.helpers({
 	
 })
 
-Template.contacts_form.rendered = function() {
-	if (Session.get("recordId") != (null || undefined)) {
-		$("select#customer_id").val(Session.get("recordId"))
-	};
+Template.contacts_form.rendered = function() {	
+	$(function() {
+	    $('select#customer_id').selectize()[0].selectize.setValue(Session.get("recordId"))
+	});
+	$(function() {
+	    $('select#group_id').selectize()
+	});
 }
 
 Meteor.subscribe("Contacts", function(){

@@ -33,7 +33,7 @@
 				
 				<div class="form-group col-md-12">
 					<label>Group</label>
-					<select id="group_id" name="group_id" value="{{record.group_id}}" class="form-control input-sm">
+					<select id="group_id" name="group_id" value="{{record.group_id}}" class="form-control input-sm" multiple>
 						<option selected disabled>Select One</option>
 						{{#each groups}}
 						<option value="{{_id}}" {{selected _id record.group_id "selected"}}>{{name}}</option>

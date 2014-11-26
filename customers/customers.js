@@ -52,7 +52,6 @@ Customer.prototype = {
 		return Activities.find({customer_id: self._id}).fetch();
 	},
 	
-	
 	notContacted: function () {
 		var contacts = this.contacts();
 		for (var i=0; i < contacts.length; i++) {
@@ -99,22 +98,22 @@ Customer.prototype = {
 	
 	address: function() {
 		var self = this;
-		return !self.dg_info ? self.customer_address : self.dg_info.Address
+		return self.customer_address
 	},
 
 	city: function() {
 		var self = this;
-		return !self.dg_info ? self.customer_city : self.dg_info.City
+		return self.customer_city
 	},
 
 	state: function() {
 		var self = this;
-		return !self.dg_info ? self.customer_state : self.dg_info.State
+		return self.customer_state
 	},
 	
 	zip: function() {
 		var self = this;
-		return !self.dg_info ? self.customer_zip : self.dg_info.Zip
+		return self.customer_zip
 	},
 	
 	phone: function() {
@@ -134,7 +133,7 @@ Customer.prototype = {
 	
 	GeoLocation: function() {
 		var self = this;
-		if (!self.loc) {
+		if (!self.loc || self.loc == (null || undefined || "")) {
 			self.UpdateGeoLocation();
 		} else {
 			return self.loc;
@@ -144,6 +143,7 @@ Customer.prototype = {
 	UpdateGeoLocation: function() {
 		var self = this;
 		if (Meteor.isServer) {
+			console.log("Updating GeoLocaton From the Server")
 			var server_api_key = "AIzaSyD1c50Pm2aUnGvCxqbbVasMbqsFc_Crc7g"
 			url = "https://maps.googleapis.com/maps/api/geocode/json?address=+" + encodeURIComponent(self.full_address())+ "&key=" + server_api_key;
 			// console.log(url)
@@ -158,16 +158,17 @@ Customer.prototype = {
 				}
 			});
 		} else {
+			console.log("Updating GeoLocaton on the Client")
 			geocoder = new google.maps.Geocoder();
 			geocoder.geocode({'address': self.full_address() }, function(results, status) {
+				console.log(results[0].geometry.location)
 				switch(status) {
 					case google.maps.GeocoderStatus.OK:
-						var loc = {lat: results[0].geometry.location.lat, lng: results[0].geometry.location.lng}
+						var loc = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}
 						Customers.update({_id: self._id}, {$set: {loc: loc}});
 					break;
 					case google.maps.GeocoderStatus.ZERO_RESULTS:
 						console.log(self.name() + " ==>> " + self.full_address());
-						console.log(url);
 					break;
 					default:
 						console.log(self.name() + " ==>> " + self.full_address());

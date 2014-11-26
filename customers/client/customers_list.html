@@ -20,7 +20,11 @@
 					{{#each this}}
 					<tr  class="record {{#if checkCurrentModule 'customers'}}{{#if checkCurrentId _id}}active{{/if}}{{/if}}" id="customer_{{_id}}" record_id="{{_id}}" data-target="tab_view" data-toggle="tab">
 						<td class="text-left">
-							<i class="fa fa-{{#if active}}check-circle text-success{{else}}times-circle text-danger{{/if}} fa-fw"></i>
+							{{#if active}}
+							<button class="btn btn-primary btn-xs record toggle is_active" id="{{_id}}" record_id="{{_id}}" current_value="{{active}}">Yes</button>
+							{{else}}
+							<button class="btn btn-danger btn-xs record toggle is_active" id="{{_id}}" record_id="{{_id}}" current_value="{{active}}">No</button>
+							{{/if}}
 						</td>
 						<td>{{truncate name 40}}</td>
 						<td class="hidden-xs">

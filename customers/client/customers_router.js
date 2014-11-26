@@ -14,6 +14,7 @@ Router.route('customers/maps', {
 	// 			Session.set("myLng", p.coords.longitude);
 	// 		});
 	// 	}
+	// },
 	// 	var bounds = {
 	// 		southWest: [Session.get("myLat") - 0.0155, Session.get("myLng") - 0.05],
 	// 		northEast: [Session.get("myLat") + 0.0155, Session.get("myLng") + 0.05]

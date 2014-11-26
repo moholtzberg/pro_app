@@ -1,77 +1,15 @@
-Template.customers.events({
+Template.customers_list.events({
 	
-	'click button#toggleView' : function(event) {
-		console.log("Clicked Toggle");
-		event.preventDefault();
-		if (Session.get("mapView") !== true) {
-			Session.set("mapView", true);
-		} else {
-			Session.set("mapView", false);
+	'click button.toggle.is_active' : function(event) {
+		var customer_id = $("#" + event.currentTarget.id.toString()).attr("id");
+		var value = $("#" + event.currentTarget.id.toString() + ".is_active").attr("current_value")
+		if (value == undefined || null) {
+			value = false
 		};
-	},
-	
-	'click button#new_customer' : function(event) {
-		event.preventDefault();
-		Session.set("recordId", null);
-		Router.go("/customers/new/");
-	},
-
-	// 'submit form#save_customer' : function (event) {
-	// 		event.preventDefault();
-	// 		
-	// 		push_to_dg = $("input#push_to_dg").attr("checked");
-	// 		form = extractFromValues();
-	// 		console.log(form)
-	// 		dg = buildDGValues(form);
-	// 		console.log(dg)
-	// 		customer = Session.get("recordId") == null ? Customers.insert({}) : Customers.findOne(Session.get("recordId"))._id;
-	// 		console.log(customer)
-	// 		if (push_to_dg) {
-	// 			var newCustomer = !Customers.findOne(customer).dg_info ? true : false
-	// 			
-	// 			if (newCustomer) {
-	// 				
-	// 				Meteor.call("newCustomer", dg, function(e, r) {
-	// 					if (!e && r) {
-	// 						Customers.update(customer, {$set: {dg_info: JSON.parse(r)}});
-	// 					};
-	// 				});
-	// 				
-	// 			} else {
-	// 				
-	// 				var customer_id = Customers.findOne(customer).dg_info.CustomerID
-	// 				Meteor.call("updateCustomer", customer_id, dg, function(e, r){
-	// 					if (!e && r) {
-	// 						Customers.update(customer, {$set: {dg_info: JSON.parse(r)}});
-	// 					};
-	// 				});
-	// 			};
-	// 			
-	// 		} else {
-	// 			Customers.update({_id: customer}, {$set: form})
-	// 		};
-	// 	},
-
-	'click .subModule' : function(event) {
-		var subModule = $("#" + event.currentTarget.id.toString()).attr("id");
-		Session.set("currentAction", subModule);
-	},
-	
-	'click a#cancel, click button.cancel' : function(event) {
-		Router.go("/customers/");
-	},
-	
-	'click a.page': function(event) {
-		event.preventDefault();
-		Session.set("page", event.currentTarget.id);
-	},
-	
-	'click a.filter': function(event) {
-		event.preventDefult();
-		Router.go("/customers?filter=" + event.currentTarget)
+		Customers.update({_id: customer_id}, {$set: {customer_active: !value}})
 	}
-	
-});
+
+})
 
 Template.customers_form.events({
 	
@@ -79,8 +17,8 @@ Template.customers_form.events({
 		var name = $("input#customer_name").val()
 		var address = $("input#customer_address").val()
 		var city = $("input#customer_city").val()
-		var state = $("select#customer_state").val()
-		var zip = $("select#customer_zip").val()
+		var state = $("input#customer_state").val()
+		var zip = $("input#customer_zip").val()
 		var phone = $("input#customer_phone").val()
 		var fax = $("input#customer_fax").val()
 		var user_id = $("#customer_user_id").val()
@@ -93,6 +31,27 @@ Template.customers_form.events({
 	
 })
 
+Template.customers_map.events({
+	
+	'click button.group_filter' : function(event) {
+		Session.set("group_filter", event.currentTarget.id)
+	}
+	
+})
+
+Template.customers.events({
+	
+	'click button#toggleView' : function(event) {
+		console.log("Clicked Toggle");
+		event.preventDefault();
+		if (Session.get("mapView") !== true) {
+			Session.set("mapView", true);
+		} else {
+			Session.set("mapView", false);
+		};
+	}
+	
+});
 
 extractFromValues = function() {
 	var form = {};

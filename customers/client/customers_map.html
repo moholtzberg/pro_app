@@ -4,6 +4,12 @@
 		
 		<div class="panel widget">
 			
+			<div class="filters">
+				{{#each groups}}
+				<button class="btn btn-warning btn-xs group_filter" id="{{_id}}">{{name}}</button>
+				{{/each}}
+			</div>
+			
 			<div id="mapWrapper">
 				<div id="map-canvas"></div>
 			</div>

@@ -72,6 +72,12 @@ Template.customers_form.helpers({
 	}
 });
 
+Template.customers_map.helpers({
+	groups: function() {
+		return Groups.find({active: true, group_type: "customers"});
+	}
+})
+
 Template.customers_form.rendered = function() {
 	$(function() {
 	    $('select#customer_user_id').selectize()[0].selectize.setValue(Customers.findOne({_id: Session.get("recordId")}).customer_user_id)

@@ -78,15 +78,15 @@ Meteor.publish("CustomersByGeolocation", function(bounds, filter) {
 Meteor.startup( function(){
 	
 	Customers._ensureIndex( { loc : "2d" } );
-	Customers._ensureIndex( {dg_customer_id: false}, { unique: false })
+	Customers._ensureIndex( {dg_customer_id: 1})
 	// Customers._ensureIndex( {dg_customer_id: 1}, { unique: true })
 	
 	if (!Modules.findOne({slug: "customers"})) {
 		Modules.insert({name: "Customers", slug: "customers", icon: "fa-user", active: true, admin_only: false, last_update: new Date("01/01/2004")})
 	}
-	
-	Customers.find({user_id: Meteor.userId}).forEach(function(a){
-		a.GeoLocation()
+	console.log(this.userId)
+	Customers.find({customer_active: true}).forEach(function(a){
+		a.UpdateGeoLocation()
 	})
 
 });

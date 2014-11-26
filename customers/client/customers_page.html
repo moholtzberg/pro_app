@@ -9,8 +9,8 @@
 		
 					<span class="pull-right">
 						<div class="btn-group">
-							<button type="button" data-toggle="modal" data-target="#modal3" class="btn btn-default btn-sm"><i class="fa fa-fw fa-edit"></i></button>
-							<button type="button" class="btn btn-default btn-sm cancel"><i class="fa fa-fw fa-times"></i></button>
+							<a type="button" data-toggle="modal" data-target="#modal3" class="btn btn-default btn-sm"><i class="fa fa-fw fa-edit"></i></a>
+							<a href="/customers?q={{getSession 'filter'}}" type="button" class="btn btn-default btn-sm cancel"><i class="fa fa-fw fa-times"></i></a>
 						</div>
 					</span>
 				</h4>
@@ -22,7 +22,7 @@
 					<div class="container">
 						<address>
 						{{address}}<br/>
-						{{#if city}}{{city}},{{/if}} {{record.state}} {{record.zip}}<br/>
+						{{#if city}}{{city}},{{/if}} {{state}} {{zip}}<br/>
 						{{#if phone}}T {{phone}}<br/>{{/if}}
 						{{#if fax}}F {{fax}}{{/if}}
 						</address>
