@@ -8,14 +8,19 @@ Template.customers_map.rendered = function() {
 			title: title,
 			icon: "http://maps.google.com/mapfiles/ms/icons/" + color + "-dot.png"
 		});
+		markers.push(marker);
+		var infowindow = new google.maps.InfoWindow({
+			content: Blaze.toHTMLWithData(Template.customer_map_info_window, {customer: Customers.findOne(id)})
+		});
 		google.maps.event.addListener(marker, 'click', function() {
 			Session.set("recordId", id);
+			infowindow.open(map, marker)
 		});
-		markers.push(marker);
 	}
 	
 	function setAllMap(map) {
 		for (var i = 0; i < markers.length; i++) {
+			// console.log(markers[i])
 			markers[i].setMap(map);
 		}
 	}
@@ -23,6 +28,7 @@ Template.customers_map.rendered = function() {
 	function clearMarkers() {
 		setAllMap(null);
 		markers = []
+		// infoWindows = []
 	}
 	
 	function setMyLocation() {
@@ -37,11 +43,13 @@ Template.customers_map.rendered = function() {
 	
 	var map;
 	var markers = [];
-
+	var infoWindows = [];
+	var myLocation = setMyLocation()
+	
 	if (!this.rendered) {
 		
 		Tracker.autorun(function(){
-			var myLocation = setMyLocation()
+			
 			var mapOptions = {
 				zoom: 14,
 				center: myLocation,
@@ -51,33 +59,29 @@ Template.customers_map.rendered = function() {
 				map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 			};
 		
-		Tracker.autorun(function(){
-			var myLocation = setMyLocation()
-			clearMarkers()
-			var marker = new google.maps.Marker({
-				position: myLocation,
-				map: map,
-				title: "My Location",
-				icon: "http://maps.google.com/mapfiles/ms/icons/arrow.png"
-			});
-			marker.setMap(map)
-		
-			Customers.find({customer_group_id: {$in: [Session.get("group_filter")]}}).forEach(function(customer) {
-				console.log(customer.name() + " ==> " + customer.loc + " ==> " + customer.customer_group_id)
-				if (customer.loc && customer.loc.lat && customer.loc.lng) {
-					addMarker(customer.name(), customer.loc, customer._id,"blue", map)
-				} else {
-					customer.UpdateGeoLocation()
-				}
-			});
-		
-			console.log(markers)
-			setAllMap(map)
-		
-		})
+			Tracker.autorun(function(){
+				// var myLocation = setMyLocation()
+				clearMarkers()
+				var marker = new google.maps.Marker({
+					position: myLocation,
+					map: map,
+					title: "My Location",
+					icon: "http://maps.google.com/mapfiles/ms/icons/arrow.png"
+				});
+				marker.setMap(map)
+				Customers.find({customer_group_id: {$in: [Session.get("group_filter")]}}).forEach(function(customer) {
+					// console.log(customer.name() + " ==> " + customer.loc + " ==> " + customer.customer_group_id)
+					if (customer.loc && customer.loc.lat && customer.loc.lng) {
+						addMarker(customer.name(), customer.loc, customer._id,"blue", map)
+					} else {
+						customer.UpdateGeoLocation()
+					}
+				});
+				// console.log(markers[0])
+				setAllMap(map)
+			})
 		this.rendered = true;
 		})
 	};
-	
 	
 }

@@ -1,0 +1,13 @@
+<template name="customer_map_info_window">
+	<div id="content">
+		<h5 id="firstHeading" class="firstHeading">
+			<a href="/customers/{{customer._id}}">{{customer.name}}</a>
+		</h5>
+		<p>
+			<address>
+				{{customer.address}}<br/>
+				{{customer.city}}, {{customer.state}} {{customer.zip}}<br/>
+			</address>
+		</p>
+	</div>
+</template>
