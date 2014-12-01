@@ -46,6 +46,7 @@
 				<hr/>
 				
 				{{> Template.dynamic template="activities_stub" data=this}}
+				{{> Template.dynamic template="tasks_stub" data=this}}
 				
 			</div>
 	{{/with}}
@@ -54,9 +55,9 @@
 		<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 			<div class="footer">
 				
-				<button data-toggle="modal" data-target="#modal2" class="btn btn-primary btn-sm pull-right">Record Activity</button>
 				<button data-toggle="modal" data-target="#modal1" class="btn btn-primary btn-sm pull-right">Add Contact</button>
-				
+				<button data-toggle="modal" data-target="#modal2" class="btn btn-primary btn-sm pull-right">Record Activity</button>
+				<button data-toggle="modal" data-target="#modal4" class="btn btn-primary btn-sm pull-right">Create Task</button>
 			</div>
 		</nav>
 		

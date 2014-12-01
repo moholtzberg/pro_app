@@ -52,7 +52,7 @@ Template.customers_map.rendered = function() {
 			
 			var mapOptions = {
 				zoom: 14,
-				center: myLocation,
+				center: setMyLocation(),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			if (myLocation) {

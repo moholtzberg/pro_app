@@ -5,6 +5,7 @@ Router.route('logout', {
 			if (err) {
 				alert(err)
 			} else {
+				Session.set("loggedIn", false)
 				Router.go("/login");
 			}
 		});

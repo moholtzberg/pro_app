@@ -1,3 +1,5 @@
-Meteor.subscribe("Leases", function(){
-	Session.set("groupsReady", true)
+Deps.autorun(function(){
+	Meteor.subscribe("Groups", function(){
+		Session.set("groupsReady", true)
+	})
 })

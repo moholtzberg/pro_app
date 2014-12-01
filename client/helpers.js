@@ -357,3 +357,11 @@ wrapInput = function (field, span, label) {
 	output += "</div>";
 	return output;
 }
+
+Tracker.autorun(function(){
+	if (DDP._allSubscriptionsReady()) {
+		Session.set("subsReady", true)
+	} else {
+		Session.set("subsReady", false)
+	};
+})

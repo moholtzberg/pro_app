@@ -25,8 +25,14 @@ Template.customers_form.events({
 		var group_id = $("#customer_group_id").val()
 		var notes = $("#customer_notes").val()
 		
-		Customers.update({_id: Session.get("recordId")}, {$set: {customer_name: name, customer_address: address, customer_city: city, customer_state: state, customer_zip: zip, customer_phone: phone, customer_fax: fax, customer_user_id: user_id, customer_group_id: group_id, customer_notes: notes }})
-		$('#modal3').modal('hide')
+		if (Session.get("recordId")) {
+			Customers.update({_id: Session.get("recordId")}, {$set: {customer_name: name, customer_address: address, customer_city: city, customer_state: state, customer_zip: zip, customer_phone: phone, customer_fax: fax, customer_user_id: user_id, customer_group_id: group_id, customer_notes: notes }})
+			$('#modal3').modal('hide')
+		} else {
+			Customers.insert({customer_name: name, customer_address: address, customer_city: city, customer_state: state, customer_zip: zip, customer_phone: phone, customer_fax: fax, customer_user_id: user_id, customer_group_id: group_id, customer_notes: notes })
+			$('#modal1').modal('hide')
+		};
+		
 	}
 	
 })

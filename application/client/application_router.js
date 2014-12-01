@@ -30,6 +30,8 @@ Router.configure({
 			this.subscribe("Leases").wait()
 			this.subscribe("Groups").wait()
 			this.subscribe("Equipments").wait()
+			this.subscribe("Tasks").wait()
+			this.subscribe("Activities").wait()
 		};
 	}
 

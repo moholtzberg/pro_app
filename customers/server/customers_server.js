@@ -86,6 +86,10 @@ Meteor.startup( function(){
 	}
 	console.log(this.userId)
 	
+	Customers.find({$and: [ {loc: {$exists:1}}, {$or: [{"loc.lat": null},{"loc.lng": null}]} ] }).forEach(function(f){
+		f.UpdateGeoLocation()
+	})
+	
 	Customers.find({$and: [{customer_active: true}, {loc: null}]}).forEach(function(a){
 		a.UpdateGeoLocation()
 	})

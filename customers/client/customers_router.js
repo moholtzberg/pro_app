@@ -40,7 +40,14 @@ Router.route('customers/:id', {
 		if (this.params) {
 			Session.set("recordId", this.params.id)
 		};
+		this.next()
 	},
+	// onBeforeAction: function() {
+	// 	if (this.params) {
+	// 		Session.set("recordId", this.params.id)
+	// 	};
+	// 	this.next()
+	// },
 	data: function() {
 		return Customers.findOne({_id: Session.get("recordId")});
 	},
@@ -48,6 +55,7 @@ Router.route('customers/:id', {
 		this.render("contacts_form", {to: "modal1"});
 		this.render("activities_form", {to: "modal2"})
 		this.render("customers_form", {to: "modal3"})
+		this.render("tasks_form", {to: "modal4"})
 		this.render();
 	}
 });
@@ -71,6 +79,7 @@ Router.route('customers', {
 	},
 	action: function() {
 		Session.set("recordId", false)
+		this.render("customers_form", {to: "modal1"})
 		this.render();
 	}
 });

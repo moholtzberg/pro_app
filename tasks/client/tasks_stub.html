@@ -1,0 +1,10 @@
+<template name="tasks_stub">
+	<ul class="list-group">
+	{{#each this.tasks}}
+		<li class="list-group-item">
+			<h5 class="list-group-item-heading">Task {{description}} {{formatTime due_date}}</h5>
+			<p class="list-group-item-text">{{notes}}</p>
+		</li>
+	{{/each}}
+	</ul>
+</template>

@@ -16,6 +16,8 @@ Template.activities_form.rendered = function() {
 	};
 }
 
-Meteor.subscribe("Activities", function(){
-	Session.set("activitiesReady", true)
+Deps.autorun(function(){
+	Meteor.subscribe("Activities", function(){
+		Session.set("activitiesReady", true)
+	})
 })

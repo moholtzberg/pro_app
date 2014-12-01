@@ -9,7 +9,7 @@
 		</div>
 	</div>
 	
-	<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modal2" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				{{> yield "modal2"}}
@@ -17,10 +17,18 @@
 		</div>
 	</div>
 	
-	<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modal3" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				{{> yield "modal3"}}
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="modal4" tabindex="-4" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> yield "modal4"}}
 			</div>
 		</div>
 	</div>
@@ -43,7 +51,7 @@
 			<span class="icon-bar"></span>
 		</button>
 		
-		<span class="navbar-brand">Welcome {{currentUser.profile.first_name}}</span>
+		<span class="navbar-brand">{{#if getSession "subsReady"}}<i class="fa fa-circle succsess"></i>{{else}}<i class="fa fa-circle-o text-danger"></i>{{/if}} Welcome {{currentUser.profile.first_name}}</span>
 		
 		<a href="/logout" id="logout" class="btn btn-warning pull-right hidden-xs hidden-sm">
 			<i class="fa fa-fw fa-sign-out"></i>Sign Out

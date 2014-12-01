@@ -78,6 +78,15 @@ Customer.prototype = {
 		return Equipments.find({dg_customer_id: self.dg_customer_id}).fetch();
 	},
 	
+	tasks: function () {
+		if (this.record) {
+			var self = this.record;
+		} else {
+			var self = this; 
+		};
+		return Tasks.find({customer_id: self._id}).fetch();
+	},
+	
 	full_address: function() {
 		var self = this;
 		var add = self.address() == null ? false : self.address();

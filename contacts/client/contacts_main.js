@@ -11,13 +11,18 @@ Template.contacts_form.helpers({
 
 Template.contacts_form.rendered = function() {	
 	$(function() {
-	    $('select#customer_id').selectize()[0].selectize.setValue(Session.get("recordId"))
+	    $('select#contact_customer_id').selectize()[0].selectize.setValue(Session.get("recordId"))
 	});
 	$(function() {
-	    $('select#group_id').selectize()
+	    $('select#contact_group_id').selectize()
 	});
 }
 
-Meteor.subscribe("Contacts", function(){
-	Session.set("contactsReady", true)
+Tracker.autorun(function(){
+	Meteor.subscribe("Contacts", function(){
+		Session.set("contactsReady", true)
+		if (DDP._allSubscriptionsReady()) {
+			Session.set("subsReady", true)
+		};
+	})
 })

@@ -1,0 +1,59 @@
+<template name="tasks_form">
+	
+	<div class="modal-header">
+		
+		<button type="button" class="close" data-dismiss="modal">
+			<span aria-hidden="true">&times;</span>
+			<span class="sr-only">Close</span>
+		</button>
+		
+		<h4 class="modal-title">{{#if getSession "recordId"}}Edit{{else}}Add{{/if}} Task</h4>
+		
+	</div>
+	
+	<div class="modal-body">
+			
+		<form id="save_task" role="form">
+		
+			<fieldset>	
+			
+				<div id="description" class="form-group col-md-12">
+					<label>Description</label>
+					<input type="text" id="task_description" name="description" value="{{this.description}}" class="form-control input-sm">
+				</div>
+				
+				<div class="clearfix"></div>
+				
+				<div id="customer_id" class="form-group col-md-12">
+					<label>Customer</label>
+					<select id="task_customer_id" name="customer_id" class="form-control input-sm">
+						{{#each customers}}
+							<option value="{{_id}}" {{selected _id ../customer_id "selected"}}>{{name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				
+				<div id="due_date" class="form-group col-md-12">
+					<label>Due Date</label>
+					<input type="text" id="task_due_date" name="due_date" value="{{this.due_date}}" class="form-control input-sm">
+				</div>
+				
+				<div class="clearfix"></div>
+				
+				<div id="notes" class="form-group col-md-12">
+					<label>Notes</label>
+					<textarea id="task_notes" name="notes" rows="2" class="form-control input-sm">{{this.notes}}</textarea>
+				</div>
+				
+			</fieldset>
+			
+		</form>
+		
+	</div>
+	
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="button" class="btn btn-primary" id="save_task">Save changes</button>
+	</div>
+	
+</template>

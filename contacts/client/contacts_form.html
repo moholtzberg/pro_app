@@ -23,8 +23,8 @@
 				
 				<div class="form-group col-md-12">
 					<label>Customer</label>
-					<select id="customer_id" name="customer_id" value="{{record.customer_id}}" class="form-control input-sm">
-						<option selected disabled>Select One</option>
+					<select id="contact_customer_id" name="customer_id" value="{{record.customer_id}}" class="form-control input-sm">
+						<option disabled>Select One</option>
 						{{#each customers}}
 						<option value="{{_id}}" {{selected _id record.customer_id "selected"}}>{{name}}</option>
 						{{/each}}
@@ -33,8 +33,8 @@
 				
 				<div class="form-group col-md-12">
 					<label>Group</label>
-					<select id="group_id" name="group_id" value="{{record.group_id}}" class="form-control input-sm" multiple>
-						<option selected disabled>Select One</option>
+					<select id="contact_group_id" name="group_id" value="{{record.group_id}}" class="form-control input-sm" multiple>
+						<option disabled>Select One</option>
 						{{#each groups}}
 						<option value="{{_id}}" {{selected _id record.group_id "selected"}}>{{name}}</option>
 						{{/each}}
