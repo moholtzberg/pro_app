@@ -7,6 +7,15 @@ Template.customers_list.events({
 			value = false
 		};
 		Customers.update({_id: customer_id}, {$set: {customer_active: !value}})
+	},
+	
+	'click button.group_filter' : function(event) {
+		if (event.currentTarget.id != "all") {
+			Session.set("group_filter", event.currentTarget.id)
+		} else {
+			Session.set("group_filter", null)
+		};
+		
 	}
 
 })

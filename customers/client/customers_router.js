@@ -75,7 +75,7 @@ Router.route('customers', {
 	},
 	data: function(){
 		var per_page = 15
-		return Customers.find({customer_name: {$regex: "^"+Session.get("filter")+".*", $options: "i"}}, {sort: {customer_name: 1}, skip: (Session.get("page") - 1) * per_page, limit: per_page})
+		return Customers.find({$and: [{customer_group_id: {$in: [Session.get("group_filter")]}}, {customer_name: {$regex: "^"+Session.get("filter")+".*", $options: "i"}}]}, {sort: {customer_name: 1}, skip: (Session.get("page") - 1) * per_page, limit: per_page})
 	},
 	action: function() {
 		Session.set("recordId", false)

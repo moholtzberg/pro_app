@@ -1,4 +1,5 @@
 Template.customers_list.helpers({
+	
 	filters: function () {
 		var filter = Session.get("filter")
 		var start = "a"
@@ -9,11 +10,12 @@ Template.customers_list.helpers({
 		};
 		return filters
 	},
+	
 	pagination: function () {
 		if (!Session.get("page")) {
 			Session.set("page", 1)
 		};
-		var pages = Math.ceil(Customers.find({customer_name: {$regex: "^"+Session.get("filter")+".*", $options: "i"}}).count() / 15);
+		var pages = Math.ceil(Customers.find({$and: [{customer_group_id: {$in: [Session.get("group_filter")]}}, {customer_name: {$regex: "^"+Session.get("filter")+".*", $options: "i"}}]}).count() / 15);
 		var page = parseInt(Session.get("page"));
 		var pagination = new Array();
 		var range = parseInt(Session.get("range")) || 10;
@@ -48,7 +50,12 @@ Template.customers_list.helpers({
 			}
 		};
 		return pagination;	
+	},
+	
+	groups: function() {
+		return Groups.find({active: true, group_type: "customers"});
 	}
+
 });
 
 Template.customers_list.rendered = function() {

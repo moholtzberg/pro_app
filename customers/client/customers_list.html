@@ -6,29 +6,38 @@
 			
 			<div id="accordion" role="tablist" aria-multiselectable="true">
 				
-					<div class="panel-heading" role="tab" id="headingOne">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-								<i class="fa fa-chevron-down pull-left"></i>
-							</a>
-						</h4>
+				<div class="panel-heading" role="tab" id="headingOne">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							<i class="fa fa-chevron-down pull-left"></i>
+						</a>
+					</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+					<div class="panel-body">
+						<ul class="pagination pagination-sm">
+							{{#each filters}}
+							<li class="{{#if checkSession 'filter' this}} active {{/if}}"><a href="/customers?q={{this}}">{{this}}</a></li>
+							{{/each}}
+						</ul>
 					</div>
-					<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-						<div class="panel-body">
-							<ul class="pagination">
-								{{#each filters}}
-								<li class="{{#if checkSession 'filter' this}} active {{/if}}"><a href="/customers?q={{this}}">{{this}}</a></li>
-								{{/each}}
-							</ul>
-						</div>
-						<div class="panel-body">
-							<ul class="pagination">
-								{{#each pagination}}
-								<li class="{{#if checkSession 'page' this}} active {{/if}}"><a href="/customers?q={{getSession 'filter'}}&page={{this}}">{{this}}</a></li>
-								{{/each}}
-							</ul>
+					<div class="panel-body">
+						<ul class="pagination pagination-sm">
+							{{#each pagination}}
+							<li class="{{#if checkSession 'page' this}} active {{/if}}"><a href="/customers?q={{getSession 'filter'}}&page={{this}}">{{this}}</a></li>
+							{{/each}}
+						</ul>
+					</div>
+					
+					<div class="panel-body">
+						<div class="filters">
+							<button class="btn btn-danger btn-xs group_filter" id="all">Show All</button>
+							{{#each groups}}
+							<button class="btn btn-warning btn-xs group_filter" id="{{_id}}">{{name}}</button>
+							{{/each}}
 						</div>
 					</div>
+				</div>
 			
 			</div>
 			
