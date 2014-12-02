@@ -57,17 +57,17 @@ Template.customers_map.rendered = function() {
 			};
 			if (myLocation) {
 				map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-			};
-		
-			Tracker.autorun(function(){
-				// var myLocation = setMyLocation()
-				clearMarkers()
 				var marker = new google.maps.Marker({
 					position: myLocation,
 					map: map,
 					title: "My Location",
 					icon: "http://maps.google.com/mapfiles/ms/icons/arrow.png"
 				});
+			};
+		
+			Tracker.autorun(function(){
+				// var myLocation = setMyLocation()
+				clearMarkers()
 				marker.setMap(map)
 				Customers.find({customer_group_id: {$in: [Session.get("group_filter")]}}).forEach(function(customer) {
 					// console.log(customer.name() + " ==> " + customer.loc + " ==> " + customer.customer_group_id)

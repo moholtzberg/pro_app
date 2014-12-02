@@ -51,7 +51,7 @@
 			<span class="icon-bar"></span>
 		</button>
 		
-		<span class="navbar-brand">{{#if getSession "subsReady"}}<i class="fa fa-circle succsess"></i>{{else}}<i class="fa fa-circle-o text-danger"></i>{{/if}} Welcome {{currentUser.profile.first_name}}</span>
+		<span class="navbar-brand">{{#if getSession "subsReady"}}<i class="fa fa-circle text-success"></i>{{else}}<i class="fa fa-circle-o text-danger"></i>{{/if}} Welcome {{currentUser.profile.first_name}}</span>
 		
 		<a href="/logout" id="logout" class="btn btn-warning pull-right hidden-xs hidden-sm">
 			<i class="fa fa-fw fa-sign-out"></i>Sign Out

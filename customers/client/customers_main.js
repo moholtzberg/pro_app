@@ -51,17 +51,14 @@ Template.customers_list.helpers({
 	}
 });
 
+Template.customers_list.rendered = function() {
+}
+
 Template.infoWindow.helpers({
 	record: function() {
 		return Customers.findOne({_id: Session.get("recordId")});
 	}
 });
-
-// Template.customers_page.helpers({
-// 	record: function() {
-// 		return Customers.findOne({_id: Session.get("recordId")});
-// 	}
-// });
 
 Template.customers_form.helpers({
 	users: function() {

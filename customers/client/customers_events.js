@@ -13,7 +13,7 @@ Template.customers_list.events({
 
 Template.customers_form.events({
 	
-	'click button#save_contact' : function(event) {
+	'click button#save_customer' : function(event) {
 		var name = $("input#customer_name").val()
 		var address = $("input#customer_address").val()
 		var city = $("input#customer_city").val()
@@ -31,6 +31,7 @@ Template.customers_form.events({
 		} else {
 			Customers.insert({customer_name: name, customer_address: address, customer_city: city, customer_state: state, customer_zip: zip, customer_phone: phone, customer_fax: fax, customer_user_id: user_id, customer_group_id: group_id, customer_notes: notes })
 			$('#modal1').modal('hide')
+			$("form#save_customer")[0].reset()
 		};
 		
 	}

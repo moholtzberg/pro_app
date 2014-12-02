@@ -69,6 +69,24 @@ body {
 			}
 		}
 	}
+	#accordion {
+		.panel-collapse {
+			.panel-body{
+				padding: 0;
+				overflow: scroll;
+				ul.pagination {
+					margin: 5px;
+					display: -webkit-box;
+					li {
+						display: table-cell;
+						a {
+/*							padding: 6px;*/
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 .footer {
@@ -176,6 +194,6 @@ body {
 	padding: 15px !important;
 }
 
-button.btn.pull-right{
+a.btn.btn.pull-right, button.btn.pull-right{
 	margin-left: 5px;
 }

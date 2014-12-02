@@ -3,7 +3,35 @@
 	<div class="col-md-12">
 		
 		<div class="panel widget ">
+			
+			<div id="accordion" role="tablist" aria-multiselectable="true">
 				
+					<div class="panel-heading" role="tab" id="headingOne">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								<i class="fa fa-chevron-down pull-left"></i>
+							</a>
+						</h4>
+					</div>
+					<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<ul class="pagination">
+								{{#each filters}}
+								<li class="{{#if checkSession 'filter' this}} active {{/if}}"><a href="/customers?q={{this}}">{{this}}</a></li>
+								{{/each}}
+							</ul>
+						</div>
+						<div class="panel-body">
+							<ul class="pagination">
+								{{#each pagination}}
+								<li class="{{#if checkSession 'page' this}} active {{/if}}"><a href="/customers?q={{getSession 'filter'}}&page={{this}}">{{this}}</a></li>
+								{{/each}}
+							</ul>
+						</div>
+					</div>
+			
+			</div>
+			
 			<table class="table table-hover table-condensed">
 					
 				<thead>
@@ -46,37 +74,8 @@
 		
 		<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 			<div class="footer">
-				<div class="btn-group dropup pull-left">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-						Filter <span class="caret"></span>
-						<span class="sr-only">Toggle Dropdown</span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						{{#each filters}}
-						<li class="{{#if checkSession 'filter' this}} active {{/if}}"><a href="/customers?q={{this}}">{{this}}</a></li>
-						{{/each}}
-					</ul>
-				</div>
-				
-				<a class="btn btn-primary" href="/customers/maps">Map View</a>
-				<a class="btn btn-primary" data-toggle="modal" data-target="#modal1">Add Customer</a>
-				<div class="btn-group dropup pull-right">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-						Page <span class="caret"></span>
-						<span class="sr-only">Toggle Dropdown</span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						{{#each pagination}}
-						<li class="{{#if checkSession 'page' this}} active {{/if}}"><a href="/customers?q={{getSession 'filter'}}&page={{this}}">{{this}}</a></li>
-						{{/each}}
-					</ul>
-				</div>
-				
-				
-				<!-- 
-				<button id="toggleView" class="btn btn-primary btn-sm">Toggle</button>
-				<button id="new_customer" class="btn btn-primary btn-sm">New Customer</button>
-				-->
+				<a class="btn btn-primary btn-sm pull-right" href="/customers/maps">Map View</a>
+				<a class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#modal1">Add Customer</a>
 			</div>
 		</nav>
 
