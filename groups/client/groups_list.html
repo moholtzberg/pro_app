@@ -9,10 +9,12 @@
 						<tr>
 							<th class="text-left">Active</th>
 							<th>Name</th>
-							<th class="text-right">Group Type</th>
+							<th class="text-center">Group Type</th>
+							<th class="text-center">Records in Group</th>
+							<th class="text-right">&nbsp;</th>
 						</tr>
 					</thead>
-	
+					
 					<tbody>
 						{{#each this}}
 						<tr  class="record" id="group_{{_id}}" record_id="{{_id}}" data-target="tab_view" data-toggle="tab">
@@ -24,7 +26,11 @@
 								{{/if}}
 							</td>
 							<td>{{name}}</td>
-							<td class="text-right">{{group_type}}</td>
+							<td class="text-center">{{group_type}}</td>
+							<td class="text-center">{{record_count}}</td>
+							<td class="text-right">
+								<button class="btn btn-danger btn-xs record toggle delete" id="{{_id}}" record_id="{{_id}}" current_value="{{active}}"><i class="fa fa-trash-o fa-white fa-lg"></i></button>
+							</td>
 						</tr>
 						{{/each}}
 					</tbody>

@@ -6,6 +6,7 @@ Router.route('groups', {
 	action: function () {
 		$('#modal1').modal('hide')
 		Session.set("recordId", false)
+		Session.set("groupType", false)
 		this.render("groups_form", {to: "modal1"});
 		this.render();
 	}

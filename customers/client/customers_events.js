@@ -35,8 +35,9 @@ Template.customers_form.events({
 		var notes = $("#customer_notes").val()
 		
 		if (Session.get("recordId")) {
-			Customers.update({_id: Session.get("recordId")}, {$set: {customer_name: name, customer_address: address, customer_city: city, customer_state: state, customer_zip: zip, customer_phone: phone, customer_fax: fax, customer_user_id: user_id, customer_group_id: group_id, customer_notes: notes }})
+			Customers.update({_id: Session.get("recordId")}, {$set: {customer_name: name, customer_address: address, customer_city: city, customer_state: state, customer_zip: zip, customer_phone: phone, customer_fax: fax, customer_user_id: user_id, customer_group_id: group_id, customer_notes: notes, last_update: new Date() }})
 			$('#modal3').modal('hide')
+			Customers.findOne({_id: Session.get("recordId")}).UpdateGeoLocation()
 		} else {
 			Customers.insert({customer_name: name, customer_address: address, customer_city: city, customer_state: state, customer_zip: zip, customer_phone: phone, customer_fax: fax, customer_user_id: user_id, customer_group_id: group_id, customer_notes: notes })
 			$('#modal1').modal('hide')
@@ -73,29 +74,3 @@ Template.customers.events({
 	}
 	
 });
-
-extractFromValues = function() {
-	var form = {};
-	form.customer_name = $("input#customer_name").val();
-	form.customer_address = $("input#customer_address").val();
-	form.customer_city = $("input#customer_city").val();
-	form.customer_state = $("input#customer_state").val();
-	form.customer_zip = $("input#customer_zip").val();
-	form.customer_phone = $("input#customer_phone").val();
-	form.customer_fax = $("input#customer_fax").val();
-	form.customer_zip = $("input#customer_zip").val();
-	form.customer_user_id = $("input#customer_user_id").val();
-	return form;
-}
-
-buildDGValues = function(form) {
-	var obj = {}
-	obj.CustomerName = form.customer_name
-	obj.Address = form.customer_address
-	obj.City = form.customer_city
-	obj.State = form.customer_state
-	obj.Zip = form.customer_zip
-	obj.Phone1 = form.customer_phone
-	obj.Fax = form.customer_fax
-	return obj;
-}

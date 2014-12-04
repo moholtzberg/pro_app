@@ -58,9 +58,6 @@ Template.customers_list.helpers({
 
 });
 
-Template.customers_list.rendered = function() {
-}
-
 Template.infoWindow.helpers({
 	record: function() {
 		return Customers.findOne({_id: Session.get("recordId")});
@@ -83,15 +80,13 @@ Template.customers_map.helpers({
 })
 
 Template.customers_form.rendered = function() {
-	$(function() {
-		if (Session.get("recordId")) {
-			$('select#customer_user_id').selectize()[0].selectize.setValue(Customers.findOne({_id: Session.get("recordId")}).customer_user_id)
-			$('select#customer_group_id').selectize()[0].selectize.setValue(Customers.findOne({_id: Session.get("recordId")}).customer_group_id)
-		} else {
-			$('select#customer_user_id').selectize()
-			$('select#customer_group_id').selectize()
-		};
-	});
+	if (Session.get("recordId")) {
+		$('select#customer_user_id').selectize()[0].selectize.setValue(Customers.findOne({_id: Session.get("recordId")}).customer_user_id)
+		$('select#customer_group_id').selectize()[0].selectize.setValue(Customers.findOne({_id: Session.get("recordId")}).customer_group_id)
+	} else {
+		$('select#customer_user_id').selectize()
+		$('select#customer_group_id').selectize()
+	};
 }
 
 Deps.autorun(function(){

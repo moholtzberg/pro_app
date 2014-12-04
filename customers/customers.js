@@ -173,7 +173,7 @@ Customer.prototype = {
 				switch(status) {
 					case google.maps.GeocoderStatus.OK:
 						var loc = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}
-						Customers.update({_id: self._id}, {$set: {loc: loc}});
+						Customers.update({_id: self._id}, {$set: {loc: loc, last_update: new Date()}});
 					break;
 					case google.maps.GeocoderStatus.ZERO_RESULTS:
 						console.log(self.name() + " ==>> " + self.full_address());

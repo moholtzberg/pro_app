@@ -18,7 +18,7 @@
 
 				<tbody>
 					{{#each this}}
-					<tr  class="record {{#if past_due}}danger strikethrough{{/if}}" id="tasks_{{_id}}" record_id="{{_id}}" data-target="tab_view" data-toggle="tab">
+					<tr  class="record {{#if completed}}strike-through{{else}}{{#if past_due}}danger{{/if}}{{/if}}" id="tasks_{{_id}}" record_id="{{_id}}" data-target="tab_view" data-toggle="tab">
 						<td class="text-left">
 							{{#if completed}}
 							<button class="btn btn-primary btn-xs record toggle is_complete" id="{{_id}}" record_id="{{_id}}" current_value="{{completed}}">Yes</button>

@@ -26,9 +26,6 @@ Router.route('customers/maps', {
 	// 	}
 		// return Meteor.subscribe("CustomersByGeolocation",  MapBounds.findOne(), "blank")
 	// },
-	// data: function() {
-	// 	return Customers.find()
-	// },
 	action: function() {
 		this.render();
 	}
@@ -63,10 +60,8 @@ Router.route('customers/:id', {
 Router.route('customers', {
 	template: 'customers_list',
 	waitOn: function(){
-		console.log("customers")
 		if (this.params.query) {
 			Session.set("filter", this.params.query.q)
-			console.log(Session.get("filter"))
 			Session.set("page", this.params.query.page)
 		} else {
 			Session.set("filter", "a")

@@ -7,6 +7,7 @@
 	
 	<div class="modal-body">
 		<form id="group_form">
+			
 			<fieldset>
 				
 				{{#if getSession "error"}}
@@ -21,11 +22,48 @@
 				</div>
 
 				<div id="group_type" class="form-group col-md-6">
-					<label>group_type</label>
-					<input type="text" id="group_type" name="group_type" value="{{record.group_type}}" class="form-control input-sm">
+					<label>Group Type</label>
+					<select id="group_type" name="group_type" class="form-control input-sm">
+						<option>Choose</option>
+						<option value="contacts">Contacts</option>
+						<option value="customers">Customers</option>
+					</select>
 				</div>
 			
 			</fieldset>
+			
+			{{#if getSession "groupType"}}
+			
+			<fieldset>
+				
+				<div id="field_name" class="form-group col-md-5">
+					<label>Field Name</label>
+					<select id="field_name" name="field_name" class="form-control input-sm">
+						{{#each customer_keys}}
+						<option value="{{this}}" {{selected this ../fields "selected"}}>{{this}}</option>
+						{{/each}}
+					</select>
+				</div>
+				
+				<div id="field_filter" class="form-group col-md-2">
+					<label>Filter</label>
+					<select id="field_filter" name="field_filter" class="form-control input-sm">
+						<option value="equals">Equals</option>
+						<option value="not_equal">Does Not Equal</option>
+						<option value="less_than">Less Than</option>
+						<option value="greater_than">Greater Than</option>
+						<option value="contains">Contains</option>
+					</select>
+				</div>
+				
+				<div id="field_value" class="form-group col-md-5">
+					<label>Field Value</label>
+					<input type="text" id="field_value" name="field_values" class="form-control input-sm">
+				</div>
+				
+			</fieldset>
+			
+			{{/if}}
 
 		</form>
 	</div>

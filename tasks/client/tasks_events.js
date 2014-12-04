@@ -11,6 +11,19 @@ Template.tasks_list.events({
 
 })
 
+Template.tasks_stub.events({
+	
+	'click button.toggle.is_complete' : function(event) {
+		var task_id = $("#" + event.currentTarget.id.toString()).attr("id");
+		var value = $("#" + event.currentTarget.id.toString() + ".is_complete").attr("current_value")
+		if (value == undefined || null) {
+			value = false
+		};
+		Tasks.update({_id: task_id}, {$set: {completed: !value}})
+	}
+
+})
+
 Template.tasks_form.events({
 	
 	'click button#save_task' : function(event) {

@@ -27,7 +27,7 @@ Meteor.startup( function(){
 						};
 					} else {
 						console.log("-----------> Entering customer " + a[i].dg_customer_number + " was not found in the db")
-						Customers.insert({dg_customer_id: a[i].dg_customer_id, dg_customer_number: a[i].dg_customer_number, dg_customer_sales_rep_id: a[i].dg_customer_sales_rep_id, dg_customer_last_updated_at: a[i].dg_customer_last_updated_at,customer_name: a[i].customer_name, customer_address: a[i].customer_address, customer_city: a[i].customer_city, customer_state: a[i].customer_state, customer_zip: a[i].customer_zip, customer_phone: a[i].customer_phone, customer_fax: a[i].customer_fax, customer_active: a[i].customer_active, customer_prospect: a[i].customer_prospect})
+						Customers.insert({dg_customer_id: a[i].dg_customer_id, dg_customer_number: a[i].dg_customer_number, dg_customer_sales_rep_id: a[i].dg_customer_sales_rep_id, dg_customer_last_updated_at: a[i].dg_customer_last_updated_at,customer_name: a[i].customer_name, customer_address: a[i].customer_address, customer_city: a[i].customer_city, customer_state: a[i].customer_state, customer_zip: a[i].customer_zip, customer_phone: a[i].customer_phone, customer_fax: a[i].customer_fax, customer_active: a[i].customer_active, customer_prospect: a[i].customer_prospect, last_update: new Date()})
 					}
 				}
 				Modules.update({_id: Modules.findOne({slug: "customers"})._id}, {$set: {last_update: new Date()}})
