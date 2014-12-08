@@ -1,17 +1,13 @@
-Meteor.startup( function(){
-	
-	Meteor.subscribe("Customers", function(){
-		Session.set("customersReady", true)
-	})
-	
-	console.log("starting up customers")
-	
-	if (Modules.findOne({slug: "customers"}) && Modules.findOne({slug: "customers"}).last_update) {
-		var last_update = Modules.findOne({slug: "customers"}).last_update
-	} else {
-		var last_update = new Date("01/01/2004")
+var customersFromDG = function() {
+	if (Modules) {
+		if (Modules.findOne({slug: "customers"}) && Modules.findOne({slug: "customers"}).last_update) {
+			var last_update = Modules.findOne({slug: "customers"}).last_update
+		} else {
+			var last_update = new Date("01/01/2004")
+		};
 	};
 	
+	// var last_update = moment(new Date()).subtract(1, "hour").toISOString()
 	Meteor.call("getCustomers", last_update, function(e, r){
 			if (!e && r) {
 				var a = JSON.parse(r);
@@ -34,5 +30,9 @@ Meteor.startup( function(){
 				console.log("----------> " + "Done updating customers")
 			}	
 		});
-	
-})
+}
+var cron = new Meteor.Cron( {
+	events:{
+		"* * * * *"  : customersFromDG
+	}
+});

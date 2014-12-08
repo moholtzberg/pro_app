@@ -3,6 +3,7 @@ Meteor.methods({
 	getCustomers: function (time) {
 		try {
 			var v = HTTP.get(process.env.REMOTE_URL + "/customers.json?last_update="+time);
+			console.log(process.env.REMOTE_URL + "/customers.json?last_update="+time)
 			if (v.statusCode === 200) {
 				return v.content;
 			} else {
@@ -84,7 +85,6 @@ Meteor.startup( function(){
 	if (!Modules.findOne({slug: "customers"})) {
 		Modules.insert({name: "Customers", slug: "customers", icon: "fa-user", active: true, admin_only: false, last_update: new Date("01/01/2004")})
 	}
-	console.log(this.userId)
 	
 	Customers.find({$and: [ {loc: {$exists:1}}, {$or: [{"loc.lat": null},{"loc.lng": null}]} ] }).forEach(function(f){
 		f.UpdateGeoLocation()

@@ -1,12 +1,6 @@
-Meteor.startup( function(){
+var leasesFromDG = function() {
 	
-	console.log("starting up leases")
-	
-	if (Modules.findOne({slug: "leases"}) && Modules.findOne({slug: "leases"}).last_update) {
-		var last_update = Modules.findOne({slug: "leases"}).last_update
-	} else {
-		var last_update = new Date("01/01/2004")
-	};
+	var last_update = moment(new Date()).subtract(1, "hour").toISOString()
 	
 	Meteor.call("getLeases", last_update, function(e, r){
 		if (!e && r) {
@@ -30,4 +24,9 @@ Meteor.startup( function(){
 		};
 	});
 	
-})
+}
+var cron = new Meteor.Cron( {
+	events:{
+		"* * * * *"  : leasesFromDG
+	}
+});
