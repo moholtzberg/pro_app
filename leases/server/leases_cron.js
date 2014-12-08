@@ -25,8 +25,8 @@ var leasesFromDG = function() {
 	});
 	
 }
-var cron = new Meteor.Cron( {
-	events:{
-		"* * * * *"  : leasesFromDG
-	}
-});
+// var cron = new Meteor.Cron( {
+// 	events:{
+// 		"* * * * *"  : leasesFromDG
+// 	}
+// });

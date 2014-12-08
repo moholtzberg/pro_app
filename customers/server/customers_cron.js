@@ -31,8 +31,8 @@ var customersFromDG = function() {
 			}	
 		});
 }
-var cron = new Meteor.Cron( {
-	events:{
-		"* * * * *"  : customersFromDG
-	}
-});
+// var cron = new Meteor.Cron( {
+// 	events:{
+// 		"* * * * *"  : customersFromDG
+// 	}
+// });
