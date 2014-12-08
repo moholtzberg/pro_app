@@ -1,0 +1,95 @@
+<template name="leases_list">
+	
+	<div class="col-md-12">
+		
+		<div class="panel widget ">
+			
+			<div id="accordion" role="tablist" aria-multiselectable="true">
+				
+				<div class="panel-heading" role="tab" id="headingOne">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							<i class="fa fa-chevron-down pull-left"></i>
+						</a>
+					</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+					<div class="panel-body">
+						<ul class="pagination pagination-sm">
+							<li><a id="15" href="/leases?min=0&max=15">End of Month</a></li>
+							<li><a id="30" href="/leases?min=16&max=30">30 Days Out</a></li>
+							<li><a id="60" href="/leases?min=31&max=60">60 Days Out</a></li>
+							<li><a id="90" href="/leases?min=61&max=90">90 Days Out</a></li>
+							<li><a id="180" href="/leases?min=91&max=180">6 Months Out</a></li>
+							<li><a id="365" href="/leases?min=181&max=365">1 Year Out</a></li>
+							<li><a id="730" href="/leases?min=366&max=730">2 Years Out</a></li>
+						</ul>
+					</div>
+					<div class="panel-body">
+						<ul class="pagination pagination-sm">
+							{{#each pagination}}
+							<li class="{{#if checkSession 'page' this}} active {{/if}}"><a href="/leases?min={{getSession 'leaseFilterMin'}}&max={{getSession 'leaseFilterMax'}}&page={{this}}">{{this}}</a></li>
+							{{/each}}
+						</ul>
+					</div>
+					
+					<div class="panel-body">
+						<div class="filters">
+							<button class="btn btn-danger btn-xs group_filter" id="all">Show All</button>
+							{{#each groups}}
+							<button class="btn btn-warning btn-xs group_filter" id="{{_id}}">{{name}}</button>
+							{{/each}}
+						</div>
+					</div>
+				</div>
+			
+			</div>
+			
+			<table class="table table-hover table-condensed">
+					
+				<thead>
+					<tr>
+						<th class="text-left">Active</th>
+						<th>Customer</th>
+						<th>Leasing Company</th>
+						<th>End Date</th>
+						<th>Monthly Payment</th>
+						<th class="text-right">&nbsp;</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{{#each this}}
+					<tr  class="record" id="lease_{{_id}}" record_id="{{_id}}" data-target="tab_view" data-toggle="tab">
+						<td class="text-left">
+							{{#if active}}
+							<button class="btn btn-primary btn-xs record toggle is_active" id="{{_id}}" record_id="{{_id}}" current_value="{{active}}">Yes</button>
+							{{else}}
+							<button class="btn btn-danger btn-xs record toggle is_active" id="{{_id}}" record_id="{{_id}}" current_value="{{active}}">No</button>
+							{{/if}}
+						</td>
+						<td>{{leasing_company.name}}</td>
+						<td>{{customer.name}}</td>
+						<td class="hidden-xs">
+							{{formatTime lease_end_date}}
+						</td>
+						<td class="text-right">{{formatMoney lease_payment}}</td>
+						<td class="text-right"><a href="/leases/{{_id}}/" class="record" id="lease_{{_id}}" record_id="{{_id}}"><i class="fa fa-search"></i></a></td>
+					</tr>
+					{{/each}}
+				</tbody>
+				
+			</table>
+		
+		</div>
+	
+		
+		<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+			<div class="footer">
+				<a class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#modal1">Add Lease</a>
+			</div>
+		</nav>
+
+	</div>
+	
+</template>

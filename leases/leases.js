@@ -21,7 +21,17 @@ Lease.prototype = {
 	
 	end_date: function() {
 		var self = this;
-		return !self.lease_start_date ? false : moment(self.lease_start_date).add(self.lease_term, "months");
+		return !self.lease_start_date ? false : moment(self.lease_start_date).add(self.lease_term, "months").toISOString();
+	},
+	
+	leasing_company: function() {
+		var self = this;
+		return Customers.findOne({dg_customer_id: self.dg_leasing_company_id})
+	},
+	
+	customer: function() {
+		var self = this;
+		return Customers.findOne(({dg_customer_id: self.lease_customer_id}))
 	}
 
 };

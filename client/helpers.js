@@ -86,6 +86,10 @@ Handlebars.registerHelper("formatTime", function (time) {
 	return time ? moment(time).format("MM/DD/YY") + " (" + moment(time).from() + ")": false;
 });
 
+Handlebars.registerHelper("formatMoney", function (cash) {
+	return cash ? accounting.formatMoney(cash) : false;
+});
+
 Handlebars.registerHelper("moduleAction", function () {
 	return Session.get("currentModule") + " - " + Session.get("currentAction");
 });
