@@ -4,7 +4,7 @@ Template.leases_list.helpers({
 		if (!Session.get("page")) {
 			Session.set("page", 1)
 		};
-		var pages = Math.ceil(Leases.find({lease_end_date: {$gte: moment(new Date()).add(Session.get("leaseFilterMin"), "days").toISOString(), $lt: moment(new Date()).add(Session.get("leaseFilterMax"), "days").toISOString()} }).count() / 15);
+		var pages = Math.ceil(Leases.find({lease_end_date: {$gte: new Date(Session.get("rangeStart")).toISOString(), $lt: new Date(Session.get("rangeEnd")).toISOString()} }).count() / 15);
 		var page = parseInt(Session.get("page"));
 		var pagination = new Array();
 		var range = parseInt(Session.get("range")) || 10;
@@ -42,6 +42,10 @@ Template.leases_list.helpers({
 	},
 	
 })
+
+Template.leases_list.rendered = function() {
+	$('.input-daterange').datepicker({});
+}
 
 Deps.autorun(function(){
 	Meteor.subscribe("Leases", function(){

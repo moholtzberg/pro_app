@@ -14,7 +14,7 @@
 					</h4>
 				</div>
 				<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-					<div class="panel-body">
+					<!-- <div class="panel-body">
 						<ul class="pagination pagination-sm">
 							<li><a id="15" href="/leases?min=0&max=15">End of Month</a></li>
 							<li><a id="30" href="/leases?min=16&max=30">30 Days Out</a></li>
@@ -24,23 +24,27 @@
 							<li><a id="365" href="/leases?min=181&max=365">1 Year Out</a></li>
 							<li><a id="730" href="/leases?min=366&max=730">2 Years Out</a></li>
 						</ul>
-					</div>
-					<div class="panel-body">
-						<ul class="pagination pagination-sm">
-							{{#each pagination}}
-							<li class="{{#if checkSession 'page' this}} active {{/if}}"><a href="/leases?min={{getSession 'leaseFilterMin'}}&max={{getSession 'leaseFilterMax'}}&page={{this}}">{{this}}</a></li>
-							{{/each}}
-						</ul>
-					</div>
-					
-					<!-- <div class="panel-body">
-						<div class="filters">
-							<button class="btn btn-danger btn-xs group_filter" id="all">Show All</button>
-							{{#each groups}}
-							<button class="btn btn-warning btn-xs group_filter" id="{{_id}}">{{name}}</button>
-							{{/each}}
-						</div>
 					</div> -->
+					
+					<div class="panel-body">
+						<div class="filters">
+							<div class="input-daterange input-group" id="datepicker">
+							    <input type="text" class="input-sm form-control" id="range_start" />
+							    <span class="input-group-addon">to</span>
+							    <input type="text" class="input-sm form-control" id="range_end" />
+								<span class="input-group-btn">
+					                  <button class="btn btn-default btn-sm group_filter" id="go">Go!</button>
+					            </span>
+								
+							</div>
+							
+						</div>
+					</div>
+					<ul class="pagination pagination-sm">
+						{{#each pagination}}
+						<li class="{{#if checkSession 'page' this}} active {{/if}}"><a href="/leases?min={{getSession 'rangeStart'}}&max={{getSession 'rengeEnd'}}&page={{this}}">{{this}}</a></li>
+						{{/each}}
+					</ul>
 				</div>
 			
 			</div>
