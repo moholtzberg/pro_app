@@ -42,7 +42,7 @@
 					</div>
 					<ul class="pagination pagination-sm">
 						{{#each pagination}}
-						<li class="{{#if checkSession 'page' this}} active {{/if}}"><a href="/leases?min={{getSession 'rangeStart'}}&max={{getSession 'rengeEnd'}}&page={{this}}">{{this}}</a></li>
+						<li class="{{#if checkSession 'page' this}} active {{/if}}"><a href="/leases?min={{getSession 'rangeStart'}}&max={{getSession 'rangeEnd'}}&page={{this}}">{{this}}</a></li>
 						{{/each}}
 					</ul>
 				</div>

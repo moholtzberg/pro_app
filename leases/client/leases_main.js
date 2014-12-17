@@ -4,7 +4,7 @@ Template.leases_list.helpers({
 		if (!Session.get("page")) {
 			Session.set("page", 1)
 		};
-		var pages = Math.ceil(Leases.find({lease_end_date: {$gte: new Date(Session.get("rangeStart")).toISOString(), $lt: new Date(Session.get("rangeEnd")).toISOString()} }).count() / 15);
+		var pages = Math.ceil(Leases.find({lease_end_date: {$gte: Session.get("rangeStart"), $lt: Session.get("rangeEnd")} }).count() / 15);
 		var page = parseInt(Session.get("page"));
 		var pagination = new Array();
 		var range = parseInt(Session.get("range")) || 10;
