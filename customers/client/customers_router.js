@@ -7,25 +7,25 @@ Router.route('customers/new', {
 
 Router.route('customers/maps', {
 	template: "customers_map",
-	// waitOn: function(){
-	// 	if (navigator.geolocation) {
-	// 		navigator.geolocation.getCurrentPosition(function(p) {
-	// 			Session.set("myLat", p.coords.latitude);
-	// 			Session.set("myLng", p.coords.longitude);
-	// 		});
-	// 	}
-	// },
-	// 	var bounds = {
-	// 		southWest: [Session.get("myLat") - 0.0155, Session.get("myLng") - 0.05],
-	// 		northEast: [Session.get("myLat") + 0.0155, Session.get("myLng") + 0.05]
-	// 	}
-	// 	if (MapBounds.find().count() < 1) {
-	// 		MapBounds.insert(bounds);
-	// 	} else {
-	// 		MapBounds.update({}, bounds);
-	// 	}
-		// return Meteor.subscribe("CustomersByGeolocation",  MapBounds.findOne(), "blank")
-	// },
+	waitOn: function(){
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(p) {
+				Session.set("myLat", p.coords.latitude);
+				Session.set("myLng", p.coords.longitude);
+			});
+		}
+		var bounds = {
+			southWest: [Session.get("myLat") - 0.0155, Session.get("myLng") - 0.05],
+			northEast: [Session.get("myLat") + 0.0155, Session.get("myLng") + 0.05]
+		}
+		if (MapBounds.find().count() < 1) {
+			MapBounds.insert(bounds);
+		} else {
+			MapBounds.update({}, bounds);
+		}
+		this.subscribe("CustomersByGeolocation",  MapBounds.findOne(), "blank")
+		this.next()
+	},
 	action: function() {
 		this.render();
 	}
@@ -37,6 +37,7 @@ Router.route('customers/:id', {
 		if (this.params) {
 			Session.set("recordId", this.params.id)
 		};
+		this.subscribe("CustomerById",  Session.get("recordId"))
 		this.next()
 	},
 	// onBeforeAction: function() {
@@ -60,21 +61,22 @@ Router.route('customers/:id', {
 Router.route('customers', {
 	template: 'customers_list',
 	waitOn: function(){
-		if (this.params.query) {
-			Session.set("filter", this.params.query.q)
-			Session.set("page", this.params.query.page)
-		} else {
-			Session.set("filter", "a")
-			Session.set("page", 1)
-		}
+		console.log(this.params.query)
+		// Session.set("filter", this.params.query.q)
+		// Session.set("page", this.params.query.page)
+		// alert(Session.get("filter"))
+		this.subscribe("Customers", Session.get("filter"), Session.get("group_filter"), Session.get("page"), 15).wait()
+		// this.next()
 	},
 	data: function(){
-		var per_page = 15
-		return Customers.find({$and: [{customer_group_id: {$in: [Session.get("group_filter")]}}, {customer_name: {$regex: "^"+Session.get("filter")+".*", $options: "i"}}]}, {sort: {customer_name: 1}, skip: (Session.get("page") - 1) * per_page, limit: per_page})
-	},
+		return Customers.find()
+			// return Customers.find({$and: [{customer_group_id: {$in: [Session.get("group_filter")]}}, {customer_name: {$regex: "^"+Session.get("filter")+".*", $options: "i"}}]})
+		},
 	action: function() {
+		Session.set("filter", this.params.query.q)
 		Session.set("recordId", false)
 		this.render("customers_form", {to: "modal1"})
 		this.render();
+		// this.next()
 	}
 });

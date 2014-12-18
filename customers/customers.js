@@ -193,6 +193,8 @@ Customers = new Meteor.Collection("customers", {
 	}
 });
 
+MapBounds = new Meteor.Collection(null);
+
 Customers.allow({
 	insert: function() {
 		return true;

@@ -23,7 +23,7 @@ Router.configure({
 	waitOn: function(){
 		if (Meteor.user()) {
 			this.subscribe("Modules").wait()
-			this.subscribe("Customers").wait()
+			// this.subscribe("Customers").wait()
 			this.subscribe("Contacts").wait()
 			this.subscribe("Users").wait()
 			this.subscribe("Models").wait()
