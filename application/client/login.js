@@ -1,8 +1,8 @@
 Template.login.events({
 	
-	'click a#login, submit #login-form' : function(event) {
-		// event.preventDefault();
-		var un = $("#username").val();
+	'click input#login, submit #login-form' : function(event) {
+		event.preventDefault();
+		var un = $("#email").val().toLowerCase();
 		var pw = $("#password").val();
 		console.log(un + "  " + pw)
 		if(!Meteor.loginWithPassword(un, pw, function(err){
